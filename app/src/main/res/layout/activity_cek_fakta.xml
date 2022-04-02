@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    tools:context=".user.CekFaktaActivity">
 
     <Button
         android:id="@+id/btn_lapor_berita"
@@ -15,6 +16,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@+id/btn_cek_fakta"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/abu_gelap"
         android:text="Laporan Berita" />
 
     <Button
@@ -25,12 +28,77 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/abu_gelap"
-        android:text="Cek Fakta"
-        android:textColor="@color/black" />
+        android:text="Cek Fakta" />
+
+    <EditText
+        android:id="@+id/etLinkFakta"
+        android:layout_width="280dp"
+        android:layout_height="59dp"
+        android:layout_below="@+id/tvLinkFakta"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:hint="Masukkan Link Berita"
+        android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/tvFotoLapor"
+        android:id="@+id/tvLinkFakta"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNamaFakta"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="50dp"
+        android:text="Link Berita (Optional)"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/tvNamaFakta"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etJudulFakta"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="50dp"
+        android:text="Nama Pelapor"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/etNamaFakta"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNamaFakta"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:hint="Masukkan Nama"
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
+
+    <ImageView
+        android:id="@+id/ivFotoFakta"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tvFotoFakta"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="3dp"
+        app:srcCompat="@drawable/image" />
+
+    <TextView
+        android:id="@+id/tvFotoFakta"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_alignParentStart="true"
@@ -44,91 +112,10 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tvTeksLapor"
-        android:layout_width="271dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etLinkLapor"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="50dp"
-        android:text="Teks Berita"
-        android:textColor="@color/black"
-        android:textSize="18dp" />
-
-    <EditText
-        android:id="@+id/etLinkLapor"
-        android:layout_width="280dp"
-        android:layout_height="59dp"
-        android:layout_below="@+id/tvLinkLapor"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="50dp"
-        android:ems="10"
-        android:hint="Masukkan Link Berita"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/tvLinkLapor"
-        android:layout_width="262dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etNamaLapor"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="50dp"
-        android:text="Link Berita (Optional)"
-        android:textColor="@color/black"
-        android:textSize="18dp" />
-
-    <TextView
-        android:id="@+id/tvNamaLapor"
-        android:layout_width="245dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etJudulLapor"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="50dp"
-        android:text="Nama Pelapor"
-        android:textColor="@color/black"
-        android:textSize="18dp" />
-
-    <EditText
-        android:id="@+id/etNamaLapor"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNamaLapor"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="50dp"
-        android:ems="10"
-        android:hint="Masukkan Nama"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
-
-    <ImageView
-        android:id="@+id/ivFotoLapor"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tvFotoLapor"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/image" />
-
-    <TextView
-        android:id="@+id/tvJudulLapor"
+        android:id="@+id/tvJudulFakta"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivFotoLapor"
+        android:layout_below="@+id/ivFotoFakta"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"
@@ -139,10 +126,10 @@
         android:textSize="18dp" />
 
     <EditText
-        android:id="@+id/etJudulLapor"
+        android:id="@+id/etJudulFakta"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:layout_below="@+id/tvJudulLapor"
+        android:layout_below="@+id/tvJudulFakta"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"
@@ -152,29 +139,14 @@
         android:hint="Masukkan Judul Berita"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/etTeksLapor"
-        android:layout_width="wrap_content"
-        android:layout_height="77dp"
-        android:layout_below="@+id/tvTeksLapor"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="49dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Copy Teks"
-        android:inputType="textMultiLine" />
-
     <Button
-        android:id="@+id/btnKirimLapor"
+        android:id="@+id/btnKirimFakta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etTeksLapor"
+        android:layout_below="@+id/etLinkFakta"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="147dp"
         android:layout_marginTop="5dp"
-        android:text="Lapor" />
+        android:text="Cek Fakta" />
 
 </RelativeLayout>
