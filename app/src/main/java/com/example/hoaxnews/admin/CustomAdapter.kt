@@ -27,7 +27,7 @@ class CustomAdapter(private val mList: List<ItemsViewModel>): RecyclerView.Adapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]
         // sets the image to the imageview from our itemHolder class
-        holder.gambar.setImageResource(ItemsViewModel.image)
+        holder.gambar.setImageURI(ItemsViewModel.image)
         // sets the text to the textview from our itemHolder class
         holder.judul.text = ItemsViewModel.title
         holder.nama.text = ItemsViewModel.name

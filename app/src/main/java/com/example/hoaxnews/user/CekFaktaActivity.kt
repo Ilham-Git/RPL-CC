@@ -2,6 +2,7 @@ package com.example.hoaxnews.user
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -9,6 +10,8 @@ import com.example.hoaxnews.admin.HasilCekActivity
 import com.example.hoaxnews.databinding.ActivityCekFaktaBinding
 import kotlinx.android.synthetic.main.activity_cek_fakta.*
 import kotlinx.android.synthetic.main.card_view_design.*
+
+var hitung: Int = 0
 
 class CekFaktaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCekFaktaBinding
@@ -22,22 +25,28 @@ class CekFaktaActivity : AppCompatActivity() {
         actionBar!!.title = "Cek Fakta"
         actionBar.setDisplayHomeAsUpEnabled(true)
 
+        if (hitung == 1) {
+            val stringUri = getIntent().getStringExtra("uri")
+            val uri = Uri.parse(stringUri)
+            binding.ivFotoFakta.setImageURI(uri)
+
+            binding.btnKirimFakta.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("judul", etJudulFakta.text.toString())
+                bundle.putString("nama", etNamaFakta.text.toString())
+                bundle.putString("link", etLinkFakta.text.toString())
+
+                val intent = Intent(this, HasilCekActivity::class.java)
+                intent.putExtras(bundle)
+                intent.putExtra("uri", uri)
+                startActivity(intent)
+            }
+        }
         binding.ivFotoFakta.setOnClickListener{
             pickImageGalery()
         }
         binding.btnLaporBerita.setOnClickListener{
-//            replaceFragment(FragmentLaporan())
             val intent = Intent(this, LaporanActivity::class.java)
-            startActivity(intent)
-        }
-        binding.btnKirimFakta.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("judul", etJudulFakta.text.toString())
-            bundle.putString("nama", etNamaFakta.text.toString())
-            bundle.putString("link", etLinkFakta.text.toString())
-
-            val intent = Intent(this, HasilCekActivity::class.java)
-            intent.putExtras(bundle)
             startActivity(intent)
         }
     }
@@ -50,8 +59,13 @@ class CekFaktaActivity : AppCompatActivity() {
 
     private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if (it.resultCode == Activity.RESULT_OK){
-            val result = it.data?.data
-            binding.ivFotoFakta.setImageURI(result)
+            hitung = 1
+            val URI = it.data?.data
+
+            val stringUri = URI.toString()
+            val intent = Intent(this, CekFaktaActivity::class.java)
+            intent.putExtra("uri", stringUri)
+            startActivity(intent)
         }
     }
 }
