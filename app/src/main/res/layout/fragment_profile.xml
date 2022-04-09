@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.FragmentProfile">
+
+    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:id="@+id/green_top"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#04764E"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/green_top"
+        android:background="@color/black" />
+
+    <ImageView
+        android:id="@+id/ivFotoProfile"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignBottom="@+id/green_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-70dp"
+        android:background="@drawable/profile_background"
+        android:src="@drawable/ic_baseline_person_outline_24" />
+
+    <TextView
+        android:id="@+id/tvNamaProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivFotoProfile"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:text="Ujang"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNamaProfile"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/textbox_profile"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Ujang@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:drawableStart="@drawable/ic_baseline_mail_outline_24"/>
+
+    <TextView
+        android:id="@+id/tvNomorHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEmail"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/textbox_profile"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="081342191919"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:drawableStart="@drawable/ic_baseline_phone_android_24"/>
+
+    <TextView
+        android:id="@+id/tvLokasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNomorHP"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Makassar, Sudiang"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:background="@drawable/textbox_profile"
+        android:drawableStart="@drawable/ic_outline_map_24"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:text="PENTING \nHoax itu bahaya!"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
