@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.hoaxnews.admin.HasilCekActivity
 import com.example.hoaxnews.databinding.ActivityCekFaktaBinding
@@ -14,12 +15,15 @@ import kotlinx.android.synthetic.main.card_view_design.*
 var hitung: Int = 0
 
 class CekFaktaActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityCekFaktaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCekFaktaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        hitung = 0
 
         val actionBar = supportActionBar
         actionBar!!.title = "Cek Fakta"
@@ -41,6 +45,10 @@ class CekFaktaActivity : AppCompatActivity() {
                 intent.putExtra("uri", uri)
                 startActivity(intent)
             }
+        } else{
+            binding.btnCekFakta.setOnClickListener {
+                Toast.makeText(this, "Lengkapi Form Cek Fakta", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.ivFotoFakta.setOnClickListener{
             pickImageGalery()
@@ -61,7 +69,6 @@ class CekFaktaActivity : AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK){
             hitung = 1
             val URI = it.data?.data
-
             val stringUri = URI.toString()
             val intent = Intent(this, CekFaktaActivity::class.java)
             intent.putExtra("uri", stringUri)

@@ -13,6 +13,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        hitung = 0
+        count = 0
+
         val btnLapor = findViewById<Button>(R.id.btn_lapor)
         btnLapor.setOnClickListener(this)
     }
