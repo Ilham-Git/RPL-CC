@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HoaxNews">
         <activity
-            android:name=".Form_AdminActivity"
+            android:name=".user.MainActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
@@ -30,7 +30,7 @@
             android:exported="false"
             android:parentActivityName=".user.MainActivity" />
         <activity
-            android:name=".user.MainActivity"
+            android:name=".Form_AdminActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
