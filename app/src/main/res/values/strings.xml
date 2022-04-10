@@ -8,5 +8,8 @@
     <string name="deskripsi">Mulai sekarang untuk merasakan \nfitur dari aplikasi BOGA</string>
     <string name="usernam">Nama</string>
     <string name="password">Password</string>
+    <string name="daftar">Daftar</string>
     <string name="login">Login</string>
+    <string name="register">Tidak punya akun? <a href="google.com">Daftar</a> </string>
+    <string name="masuk">Sudah punya akun? <a href="google.com">Masuk</a> </string>
 </resources>

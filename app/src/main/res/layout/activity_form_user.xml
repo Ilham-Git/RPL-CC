@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Form_AdminActivity"
+    tools:context=".Form_UserActivity"
     android:background="@color/white"
-    android:padding="20dp"  >
+    android:padding="20sp" >
+
 
     <Button
         android:id="@+id/back"
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:background="@drawable/ic_arrow_back"
-        />
+    />
 
     <TextView
         android:id="@+id/admin_text"
@@ -22,7 +23,7 @@
         android:layout_alignTop="@id/back"
         android:layout_marginTop="50dp"
         android:layout_marginStart="10sp"
-        android:text="MASUK ADMIN"
+        android:text="Masuk"
         android:textSize="32sp"
         android:textColor="@color/hijau"
         android:textStyle="bold" />
@@ -109,5 +110,14 @@
         android:paddingVertical="20dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/login"
+        android:layout_marginTop="80sp"
+        android:text="@string/register"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
