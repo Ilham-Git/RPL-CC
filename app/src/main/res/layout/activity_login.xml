@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="@color/white" >
 
-    <ImageView
+    <Button
         android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:background="@drawable/ic_arrow_back"
         />
 
@@ -58,14 +59,34 @@
         android:textColor="@color/black" />
 
     <Button
+        android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/get_start"
         android:layout_marginTop="35dp"
         android:background="@drawable/textbox_profile"
-        android:backgroundTint="@color/white"
+        android:drawableStart="@drawable/ic_baseline_person_outline_24"
         android:text="Masuk Sebagai Pengguna"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="6dp"
+        />
+
+    <Button
+        android:id="@+id/admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/user"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/textbox_profile"
+        android:drawableStart="@drawable/ic_baseline_person_outline_24"
+        android:paddingHorizontal="30dp"
+        android:text="Masuk Sebagai Admin"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>
