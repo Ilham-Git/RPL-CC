@@ -6,7 +6,7 @@
 
 
     <Button
-        android:id="@+id/btn_lapor_berita"
+        android:id="@+id/btnLaporBerita"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,7 +18,7 @@
         android:text="Laporan Berita" />
 
     <Button
-        android:id="@+id/btn_cek_fakta"
+        android:id="@+id/btnCekFakta"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -155,7 +155,7 @@
     <EditText
         android:id="@+id/etTeksLapor"
         android:layout_width="wrap_content"
-        android:layout_height="77dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvTeksLapor"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"

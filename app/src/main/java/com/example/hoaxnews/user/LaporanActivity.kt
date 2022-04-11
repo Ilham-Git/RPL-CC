@@ -25,6 +25,8 @@ class LaporanActivity : AppCompatActivity() {
         binding = ActivityLaporanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        hitung = 0
+
         val actionBar = supportActionBar
         actionBar!!.title = "Laporkan Berita"
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -51,20 +53,20 @@ class LaporanActivity : AppCompatActivity() {
                Toast.makeText(this, "Lengkapi Form Pelaporan Berita", Toast.LENGTH_SHORT).show()
            }
        }
-        
-        binding.btnLaporBerita.setOnClickListener {
-            val intent = Intent(this, LaporanActivity::class.java)
-            startActivity(intent)
-        }
 
-        binding.btnCekFakta.setOnClickListener {
-            val intent = Intent(this, CekFaktaActivity::class.java)
-            startActivity(intent)
-        }
+       binding.btnLaporBerita.setOnClickListener {
+           val intent = Intent(this, LaporanActivity::class.java)
+           startActivity(intent)
+       }
 
-        binding.ivFotoLapor.setOnClickListener {
-            pickImageGalery()
-        }
+       binding.btnCekFakta.setOnClickListener {
+           val intent = Intent(this, CekFaktaActivity::class.java)
+           startActivity(intent)
+       }
+
+       binding.ivFotoLapor.setOnClickListener {
+           pickImageGalery()
+       }
     }
 
     private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.hoaxnews.admin.HasilCekActivity
 import com.example.hoaxnews.databinding.ActivityCekFaktaBinding
 import kotlinx.android.synthetic.main.activity_cek_fakta.*
+import kotlinx.android.synthetic.main.activity_laporan.*
 import kotlinx.android.synthetic.main.card_view_design.*
 
 var hitung: Int = 0
@@ -23,7 +24,7 @@ class CekFaktaActivity : AppCompatActivity() {
         binding = ActivityCekFaktaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        hitung = 0
+        count = 0
 
         val actionBar = supportActionBar
         actionBar!!.title = "Cek Fakta"
@@ -39,21 +40,22 @@ class CekFaktaActivity : AppCompatActivity() {
                 bundle.putString("judul", etJudulFakta.text.toString())
                 bundle.putString("nama", etNamaFakta.text.toString())
                 bundle.putString("link", etLinkFakta.text.toString())
+                bundle.putString("desc", etTeksFakta.text.toString())
 
                 val intent = Intent(this, HasilCekActivity::class.java)
                 intent.putExtras(bundle)
-                intent.putExtra("uri", uri)
+                intent.putExtra("uri", stringUri)
                 startActivity(intent)
             }
-        } else{
-            binding.btnCekFakta.setOnClickListener {
+        } else {
+            binding.btnKirimFakta.setOnClickListener {
                 Toast.makeText(this, "Lengkapi Form Cek Fakta", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.ivFotoFakta.setOnClickListener{
+        binding.ivFotoFakta.setOnClickListener {
             pickImageGalery()
         }
-        binding.btnLaporBerita.setOnClickListener{
+        binding.btnLaporBerita.setOnClickListener {
             val intent = Intent(this, LaporanActivity::class.java)
             startActivity(intent)
         }

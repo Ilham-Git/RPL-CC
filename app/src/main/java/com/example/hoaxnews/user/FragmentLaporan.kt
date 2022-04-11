@@ -1,36 +1,38 @@
-package com.example.hoaxnews.user//package com.example.hoaxnews
-//
-//import android.app.Activity
-//import android.content.Intent
-//import android.os.Bundle
-//import android.view.View
-//import androidx.activity.result.contract.ActivityResultContracts
-//import androidx.fragment.app.Fragment
-//import com.example.hoaxnews.databinding.FragmentLaporanBinding
-//
-//class FragmentLaporan : Fragment(R.layout.fragment_laporan) {
-//
-//    private lateinit var binding: FragmentLaporanBinding
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding = FragmentLaporanBinding.bind(view)
-//        binding.ivFotoLapor.setOnClickListener{
-//            pickImageGalery()
-//        }
-//    }
-//
-//    private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-//        if (it.resultCode == Activity.RESULT_OK) {
-//            val result = it.data?.data
-//            binding.ivFotoLapor.setImageURI(result)
-//        }
-//    }
-//
-//    private fun pickImageGalery() {
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = "image/*"
-//        getResult.launch(intent)
-//    }
-//
-//}
+package com.example.hoaxnews.user
+
+import android.content.Intent
+import android.content.Intent.getIntent
+import android.net.Uri
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import com.example.hoaxnews.R
+import com.example.hoaxnews.databinding.FragmentLaporanBinding
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.fragment_laporan.*
+
+class FragmentLaporan : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_laporan, container, false)
+        val bundle = arguments
+        val image = bundle!!.getString("gambar")
+        val uri = Uri.parse(image)
+        val title = bundle.getString("judul")
+        val desc = bundle.getString("desc")
+
+        ivFragGambarLapor.setImageURI(uri)
+        tvFragJudulLapor.text = title
+        tvFragDescLapor.text = desc
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+}
