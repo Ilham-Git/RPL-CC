@@ -6,18 +6,28 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import com.example.hoaxnews.R
+import com.example.hoaxnews.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         hitung = 0
         count = 0
 
         val btnLapor = findViewById<Button>(R.id.btn_lapor)
         btnLapor.setOnClickListener(this)
+
+        binding.btnProfile.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(p0: View?) {
