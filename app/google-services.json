@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "324536967165",
+    "project_id": "first-project-e6db3",
+    "storage_bucket": "first-project-e6db3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324536967165:android:7eb1204addc9c98983c394",
+        "android_client_info": {
+          "package_name": "com.example.hoaxnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324536967165-ap5t2d2pcscgdrklu1qjsp73i069rp3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJEtKMdONsy2K_XDCs0l6wR4sZBCPSqz0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324536967165-ap5t2d2pcscgdrklu1qjsp73i069rp3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

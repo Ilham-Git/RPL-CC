@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hoaxnews">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -9,6 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HoaxNews">
+        <activity android:name=".user.MainActivity"
+            android:exported="false" />
+        <activity android:name=".Form_UserActivity"
+            android:exported="false" />
+        <activity android:name=".Form_AdminActivity"
+            android:exported="false" />
         <activity
             android:name=".user.EditProfileActivity"
             android:exported="false" />
@@ -36,7 +45,7 @@
             android:exported="false"
             android:parentActivityName=".user.MainActivity" />
         <activity
-            android:name=".user.MainActivity"
+            android:name=".Form_RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
