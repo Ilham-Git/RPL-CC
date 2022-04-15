@@ -62,9 +62,6 @@ class Form_RegisterActivity : AppCompatActivity() {
         namas = binding.username.text.toString().trim()
         pass = binding.password.text.toString().trim()
 
-        System.out.println(namas)
-        System.out.println(pass)
-
         if (!Patterns.EMAIL_ADDRESS.matcher(namas).matches()) {
             binding.username.setError("Harus format Email")
         }
