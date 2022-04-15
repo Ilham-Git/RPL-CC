@@ -1,68 +1,103 @@
 package com.example.hoaxnews
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import com.example.hoaxnews.databinding.ActivityFormRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class Form_RegisterActivity : AppCompatActivity() {
 
-    lateinit var namas : EditText;
-    lateinit var pass : EditText;
-    lateinit var RedirectLogin : TextView;
-    private lateinit var regist : Button;
+    private lateinit var binding : ActivityFormRegisterBinding
+    private lateinit var actionBar: ActionBar
+    private lateinit var progresDialog : ProgressDialog
+    private var namas = ""
+    private var pass = ""
+    lateinit var redirectLogin : TextView
 
     // firebase autentikasi
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_form_register)
+        binding = ActivityFormRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Find id xml
-        namas = findViewById(R.id.username)
-        pass = findViewById(R.id.password)
-        regist = findViewById(R.id.login)
-        RedirectLogin = findViewById(R.id.redirect)
+        redirectLogin = findViewById(R.id.redirect)
 
-        auth = Firebase.auth
+        actionBar = supportActionBar!!
+        actionBar.title = "Register"
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayShowHomeEnabled(true)
 
-        regist.setOnClickListener {
-            signUpUser()
+        progresDialog = ProgressDialog(this)
+        progresDialog.setTitle("Mohon tunggu sebentar")
+        progresDialog.setMessage("Membuat akun....")
+        progresDialog.setCanceledOnTouchOutside(false)
+
+        auth = FirebaseAuth.getInstance()
+
+        binding.login.setOnClickListener {
+            validasiData()
         }
 
-        RedirectLogin.setOnClickListener {
-            val intent = Intent(this, Form_UserActivity::class.java)
-            startActivity(intent)
+        redirectLogin.setOnClickListener {
+            startActivity(Intent(this, Form_UserActivity::class.java))
         }
 
     }
 
-    private fun signUpUser() {
-        val nama = namas.text.toString()
-        val pass = pass.text.toString()
+    private fun validasiData() {
+        namas = binding.username.text.toString().trim()
+        pass = binding.password.text.toString().trim()
 
-        // check pass
-        if (nama.isBlank() || pass.isBlank()) {
-            Toast.makeText(this, "Nama dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
-            return
+        System.out.println(namas)
+        System.out.println(pass)
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(namas).matches()) {
+            binding.username.setError("Harus format Email")
         }
+        else if (TextUtils.isEmpty(pass)) {
+            binding.password.error = "Mohon masukkan password anda"
+        }
+        else {
+            firebaseRegister()
+        }
+    }
 
-        // jika nama dan pass benar
-        auth.createUserWithEmailAndPassword(nama, pass).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                Toast.makeText(this, "Berhasil Register", Toast.LENGTH_SHORT).show()
+    private fun firebaseRegister() {
+        progresDialog.show()
+
+        auth.createUserWithEmailAndPassword(namas, pass)
+            .addOnSuccessListener {
+                val fbuser = auth.currentUser
+                val nama = fbuser!!.displayName
+                Toast.makeText(this, "Akun berhasil dibuat dengan nama ${nama}", Toast.LENGTH_SHORT).show()
+
+                startActivity(Intent(this,  LoginActivity::class.java))
                 finish()
-            } else {
-                Toast.makeText(this, "Gagal Register", Toast.LENGTH_SHORT).show()
             }
-        }
+            .addOnFailureListener { e->
+                progresDialog.dismiss()
+                Toast.makeText(this, "Gagal Login ke ${e.message} ", Toast.LENGTH_SHORT).show()
+            }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+
+        return super.onSupportNavigateUp()
+    }
+
 }

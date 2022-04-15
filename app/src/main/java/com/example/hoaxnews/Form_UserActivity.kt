@@ -4,6 +4,8 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -11,58 +13,83 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.example.hoaxnews.databinding.ActivityFormUserBinding
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_login.*
 
 class Form_UserActivity : AppCompatActivity() {
-    private lateinit var daftar :  TextView
-    lateinit var namas : EditText
-    private lateinit var pass : EditText
-    lateinit var btnLogin : Button
-    lateinit var redirectRegist : TextView
 
     private lateinit var binding : ActivityFormUserBinding
     private lateinit var actionBar : ActionBar
     private lateinit var progresDialog : ProgressDialog
 
     lateinit var auth: FirebaseAuth
+    private var namas = ""
+    private var pass = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_form_user)
+        binding = ActivityFormUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        daftar = findViewById(R.id.daftar)
-        namas = findViewById(R.id.username)
-        pass = findViewById(R.id.password)
-        btnLogin = findViewById(R.id.login)
+        actionBar = supportActionBar!!
+        actionBar.title = "Login"
+
+        progresDialog = ProgressDialog(this)
+        progresDialog.setTitle("Mohon tunggu sebentar")
+        progresDialog.setMessage("Masuk....")
+        progresDialog.setCanceledOnTouchOutside(false)
 
 
         auth = FirebaseAuth.getInstance()
+        checkuser()
 
-        btnLogin.setOnClickListener {
-            logins()
+        binding.daftar.setOnClickListener {
+            startActivity(Intent(this, Form_RegisterActivity::class.java))
+            finish()
         }
 
-        daftar.setOnClickListener {
-            val intent = Intent(this, Form_RegisterActivity::class.java)
-            startActivity(intent)
+        binding.login.setOnClickListener {
+            validasiData()
         }
 
     }
 
+    private fun validasiData() {
+        namas = binding.username.text.toString().trim()
+        pass = binding.password.text.toString().trim()
 
-    private fun logins() {
-        val nama = namas.text.toString().trim()
-        val pass = pass.text.toString()
-
-        auth.signInWithEmailAndPassword(nama, pass).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                Toast.makeText(this, "Berhasil Login", Toast.LENGTH_SHORT).show()
-            }  else {
-                Toast.makeText(this, "Gagal Login", Toast.LENGTH_SHORT).show()
-            }
+        if (!Patterns.EMAIL_ADDRESS.matcher(namas).matches()) {
+            binding.username.setError("Harus format Email")
         }
+        else if (TextUtils.isEmpty(pass)) {
+            binding.password.error = "Mohon masukkan password anda"
+        }
+        else {
+            firebaseLogin()
+        }
+    }
 
+    private fun firebaseLogin() {
+        progresDialog.show()
+        auth.signInWithEmailAndPassword(namas, pass)
+            .addOnSuccessListener {
+                progresDialog.dismiss()
+                    val fbUser = auth.currentUser
+                    val nama = fbUser!!.displayName
+                    Toast.makeText(this, "Berhasil login sebagai ${nama}", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+            }
+            .addOnFailureListener { e->
+                progresDialog.dismiss()
+                Toast.makeText(this, "Gagal Login ke ${e.message} ", Toast.LENGTH_SHORT).show()
+            }
+    }
 
-
-
+    private fun checkuser() {
+        val firebaseUser = auth.currentUser
+        if (firebaseUser != null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
     }
 }
