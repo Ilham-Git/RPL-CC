@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class Form_UserActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityFormUserBinding
-    private lateinit var actionBar : ActionBar
-    private lateinit var progresDialog : ProgressDialog
+    private lateinit var binding: ActivityFormUserBinding
+//    private lateinit var actionBar: ActionBar
+    private lateinit var progresDialog: ProgressDialog
 
     lateinit var auth: FirebaseAuth
     private var namas = ""
@@ -29,9 +29,9 @@ class Form_UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFormUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        actionBar = supportActionBar!!
-        actionBar.title = "Login"
+//
+//        actionBar = supportActionBar!!
+//        actionBar.title = "Login"
 
         progresDialog = ProgressDialog(this)
         progresDialog.setTitle("Mohon tunggu sebentar")
@@ -40,7 +40,7 @@ class Form_UserActivity : AppCompatActivity() {
 
 
         auth = FirebaseAuth.getInstance()
-        checkuser()
+//        checkuser()
 
         binding.daftar.setOnClickListener {
             startActivity(Intent(this, Form_RegisterActivity::class.java))
@@ -85,11 +85,12 @@ class Form_UserActivity : AppCompatActivity() {
             }
     }
 
-    private fun checkuser() {
-        val firebaseUser = auth.currentUser
-        if (firebaseUser != null) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
-    }
+//    private fun checkuser() {
+//        val firebaseUser = auth.currentUser
+//        if (firebaseUser != null) {
+//            startActivity(Intent(this, LoginActivity::class.java))
+//            finish()
+//        }
+//    }
+
 }

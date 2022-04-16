@@ -82,7 +82,7 @@ class Form_RegisterActivity : AppCompatActivity() {
                 val nama = fbuser!!.displayName
                 Toast.makeText(this, "Akun berhasil dibuat dengan nama ${nama}", Toast.LENGTH_SHORT).show()
 
-                startActivity(Intent(this,  LoginActivity::class.java))
+                startActivity(Intent(this,  Form_UserActivity::class.java))
                 finish()
             }
             .addOnFailureListener { e->
