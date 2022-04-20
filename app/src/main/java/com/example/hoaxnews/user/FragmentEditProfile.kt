@@ -1,60 +1,147 @@
 package com.example.hoaxnews.user
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.hoaxnews.R
+import com.example.hoaxnews.databinding.FragmentEditProfileBinding
+import com.example.hoaxnews.model.Users
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_login.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentEditProfile.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentEditProfile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding : FragmentEditProfileBinding
+    private val fragmentProfile = FragmentProfile()
+    lateinit var auth: FirebaseAuth
+    lateinit var ImageUri: Uri
+    private lateinit var firebaseUser: FirebaseUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+
+        binding = FragmentEditProfileBinding.inflate(layoutInflater)
+        auth = FirebaseAuth.getInstance()
+        firebaseUser = auth.currentUser!!
+
+        // Button Kembali
+        binding.btnKembali.setOnClickListener{
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+        // Gambar Profile
+        binding.ivFotoProfile.setOnClickListener{
+            imageGallery()
+        }
+
+        // Button Update
+        updateProfile()
+
+//        userInfo()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentEditProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentEditProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    // Mengupdate data User
+    private fun updateProfile() {
+        val userRef = FirebaseStorage.getInstance().reference.child("gambarProfile/${firebaseUser.uid}")
+        userRef.putFile(ImageUri!!).addOnSuccessListener {
+            val uriTask: Task<Uri> = it.storage.downloadUrl
+            while (!uriTask.isSuccessful);
+            val uploadedImageUrl ="${uriTask.result}"
+
+            val nama = binding.etNamaProfile.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val no_hp = binding.etNomorHP.text.toString().trim()
+            val lokasi = binding.etLokasi.text.toString().trim()
+
+            val userMap = HashMap<String, Any>()
+            userMap["id"] = firebaseUser.uid
+            userMap["nama"] = nama
+            userMap["email"] = email
+            userMap["no_hp"] = no_hp
+            userMap["lokasi"] = lokasi
+            userMap["gambar"] = uploadedImageUrl
+
+            val ref = FirebaseDatabase.getInstance().getReference("USERS").child(firebaseUser.uid)
+            ref.updateChildren(userMap).addOnCompleteListener{
+                if(it.isSuccessful){
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                            .commit()
+                    }
+                    Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                            .commit()
+                    }
+                    Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    // Ambil gambar dari Gallery
+    private fun imageGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(intent, 100)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 100 && resultCode == RESULT_OK){
+            ImageUri = data?.data!!
+
+            //Picasso
+        }
+    }
+
+    // Info User
+    private fun userInfo() {
+        val userRef = FirebaseDatabase.getInstance().getReference("USERS").child(firebaseUser.uid)
+        userRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val user =snapshot.getValue<Users>(Users::class.java)
+                    if (user!!.gambar != ""){
+                        //Picasso
+                    }
+                    binding.etNamaProfile.setText(user!!.nama)
+                    binding.etEmail.setText(firebaseUser.email)
+                    binding.etNomorHP.setText(user!!.no_hp)
+                    binding.etLokasi.setText(user!!.lokasi)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }

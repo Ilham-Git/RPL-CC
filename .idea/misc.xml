@@ -28,6 +28,7 @@
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC/app/src/main/res/layout/card_view_design.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC/app/src/main/res/layout/fragment_cekfakta.xml" value="0.264" />
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC/app/src/main/res/layout/fragment_laporan.xml" value="0.264" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/drawable/ic_layout.xml" value="0.17" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/drawable/profile_background.xml" value="0.17" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/drawable/textbox_profile.xml" value="0.17" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_cek_fakta.xml" value="0.25416666666666665" />
@@ -38,10 +39,12 @@
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_cekfakta.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_edit_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_laporan.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/menu/menu_user.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
