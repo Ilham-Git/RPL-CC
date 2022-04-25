@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HoaxNews">
         <activity
+            android:name=".EdukasiActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.UserActivity"
             android:exported="false" />
         <activity android:name=".LogoActivity" />
