@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HoaxNews">
         <activity
-            android:name=".EdukasiActivity"
+            android:name=".Form_RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".user.UserActivity"
@@ -56,7 +56,7 @@
             android:name=".user.LaporanActivity"
             android:exported="false" />
         <activity
-            android:name=".Form_RegisterActivity"
+            android:name=".EdukasiActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,7 +13,8 @@ class isi_EdukasiAdapter(val menu: List<isi_Edukasi>) :
 {
     class EdukasiVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var edukasiTxt : TextView = itemView.findViewById(R.id.deskripsi)
+        var titleTxt : TextView = itemView.findViewById(R.id.title_card)
+        var edukasiTxt : TextView = itemView.findViewById(R.id.desc_card)
         var linear : LinearLayout = itemView.findViewById(R.id.linear)
         var expand_layout : RelativeLayout = itemView.findViewById(R.id.expand_layout)
 
@@ -28,6 +29,7 @@ class isi_EdukasiAdapter(val menu: List<isi_Edukasi>) :
     override fun onBindViewHolder(holder: EdukasiVH, position: Int) {
 
         val isi_menu : isi_Edukasi = menu[position]
+        holder.titleTxt.text = isi_menu.title
         holder.edukasiTxt.text = isi_menu.deskripsi
 
         val terExpand : Boolean = menu[position].expand
