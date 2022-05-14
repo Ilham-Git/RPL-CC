@@ -20,16 +20,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 
 
 class FragmentEditProfile : Fragment() {
 
     lateinit var binding : FragmentEditProfileBinding
-    private val fragmentProfile = FragmentProfile()
     lateinit var auth: FirebaseAuth
     lateinit var ImageUri: Uri
     private lateinit var firebaseUser: FirebaseUser
+    var imageEdited : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,8 @@ class FragmentEditProfile : Fragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
+
+        val fragmentProfile = FragmentProfile()
 
         // Button Kembali
         binding.btnKembali.setOnClickListener{
@@ -55,21 +59,22 @@ class FragmentEditProfile : Fragment() {
         }
 
         // Button Update
-        updateProfile()
+        binding.btnUbah.setOnClickListener{
+            if(imageEdited){
+                uploadImage()
+            }else{
+                updateProfilewithoutImage()
+            }
+        }
 
-//        userInfo()
+
+        userInfo()
 
         return binding.root
     }
 
     // Mengupdate data User
-    private fun updateProfile() {
-        val userRef = FirebaseStorage.getInstance().reference.child("gambarProfile/${firebaseUser.uid}")
-        userRef.putFile(ImageUri!!).addOnSuccessListener {
-            val uriTask: Task<Uri> = it.storage.downloadUrl
-            while (!uriTask.isSuccessful);
-            val uploadedImageUrl ="${uriTask.result}"
-
+    private fun updateProfilewithImage(uploadedImageUrl: String) {
             val nama = binding.etNamaProfile.text.toString().trim()
             val email = binding.etEmail.text.toString().trim()
             val no_hp = binding.etNomorHP.text.toString().trim()
@@ -83,9 +88,10 @@ class FragmentEditProfile : Fragment() {
             userMap["lokasi"] = lokasi
             userMap["gambar"] = uploadedImageUrl
 
-            val ref = FirebaseDatabase.getInstance().getReference("USERS").child(firebaseUser.uid)
+            val ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.uid)
             ref.updateChildren(userMap).addOnCompleteListener{
                 if(it.isSuccessful){
+                    val fragmentProfile = FragmentProfile()
                     fragmentManager?.beginTransaction()?.apply {
                         replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
                             .commit()
@@ -93,12 +99,46 @@ class FragmentEditProfile : Fragment() {
                     Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
                 }
                 else{
+                    val fragmentProfile = FragmentProfile()
                     fragmentManager?.beginTransaction()?.apply {
                         replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
                             .commit()
                     }
                     Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
                 }
+            }
+    }
+
+    private fun updateProfilewithoutImage() {
+        val nama = binding.etNamaProfile.text.toString().trim()
+        val email = binding.etEmail.text.toString().trim()
+        val no_hp = binding.etNomorHP.text.toString().trim()
+        val lokasi = binding.etLokasi.text.toString().trim()
+
+        val userMap = HashMap<String, Any>()
+        userMap["id"] = firebaseUser.uid
+        userMap["nama"] = nama
+        userMap["email"] = email
+        userMap["no_hp"] = no_hp
+        userMap["lokasi"] = lokasi
+
+        val ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.uid)
+        ref.updateChildren(userMap).addOnCompleteListener{
+            if(it.isSuccessful){
+                val fragmentProfile = FragmentProfile()
+                fragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                        .commit()
+                }
+                Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val fragmentProfile = FragmentProfile()
+                fragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                        .commit()
+                }
+                Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -117,19 +157,39 @@ class FragmentEditProfile : Fragment() {
         if(requestCode == 100 && resultCode == RESULT_OK){
             ImageUri = data?.data!!
 
-            //Picasso
+            Picasso.get()
+                .load(ImageUri)
+                .resize(200,200)
+                .into(binding.ivFotoProfile)
+
+            imageEdited = true
+        }
+    }
+
+    // Simpan gambar
+    private fun uploadImage(){
+        val userRef = FirebaseStorage.getInstance().reference.child("gambarProfile/${firebaseUser.uid}")
+        userRef.putFile(ImageUri!!).addOnSuccessListener {
+            val uriTask: Task<Uri> = it.storage.downloadUrl
+            while (!uriTask.isSuccessful);
+            val uploadedImageUrl = "${uriTask.result}"
+
+            updateProfilewithImage(uploadedImageUrl)
         }
     }
 
     // Info User
     private fun userInfo() {
-        val userRef = FirebaseDatabase.getInstance().getReference("USERS").child(firebaseUser.uid)
+        val userRef = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.uid)
         userRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     val user =snapshot.getValue<Users>(Users::class.java)
-                    if (user!!.gambar != ""){
-                        //Picasso
+                    if(!user!!.gambar.isNullOrEmpty()) {
+                        Picasso.get()
+                            .load(user!!.gambar)
+                            .resize(200, 200)
+                            .into(binding.ivFotoProfile)
                     }
                     binding.etNamaProfile.setText(user!!.nama)
                     binding.etEmail.setText(firebaseUser.email)
@@ -139,7 +199,7 @@ class FragmentEditProfile : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(context, "Gagal", Toast.LENGTH_SHORT).show()
             }
 
         })
