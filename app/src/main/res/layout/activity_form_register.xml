@@ -8,12 +8,12 @@
     android:background="@color/white"
     android:padding="20sp"
     >
+
     <Button
         android:id="@+id/back"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        android:background="@drawable/ic_arrow_back"
-        />
+        android:background="@drawable/ic_arrow_back" />
 
     <TextView
         android:id="@+id/admin_text"
@@ -57,14 +57,13 @@
         android:drawableStart="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
         android:hint="Masukkan Nama Anda"
+        android:lines="1"
+        android:maxLines="1"
         android:paddingHorizontal="20dp"
         android:paddingVertical="15dp"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:maxLines="1"
-        android:lines="1"
         android:singleLine="true"
-        />
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -110,6 +109,7 @@
         />
 
     <TextView
+        android:id="@+id/redirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/login"

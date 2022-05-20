@@ -7,8 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.hoaxnews.R
 import com.example.hoaxnews.admin.HasilCekActivity
+import com.example.hoaxnews.database.Laporan
 import com.example.hoaxnews.databinding.ActivityCekFaktaBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_cek_fakta.*
 import kotlinx.android.synthetic.main.activity_laporan.*
 import kotlinx.android.synthetic.main.card_view_design.*
@@ -18,6 +22,11 @@ var hitung: Int = 0
 class CekFaktaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCekFaktaBinding
+    private lateinit var database: DatabaseReference
+    private var judulSave = ""
+    private var namaSave = ""
+    private var linkSave = ""
+    private var descSave = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +45,25 @@ class CekFaktaActivity : AppCompatActivity() {
             binding.ivFotoFakta.setImageURI(uri)
 
             binding.btnKirimFakta.setOnClickListener {
+                val judul = binding.etJudulFakta.text.toString()
+                val nama = binding.etNamaFakta.text.toString()
+                val link = binding.etLinkFakta.text.toString()
+                val desc = binding.etTeksFakta.text.toString()
+
+                database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference()
+                val laporan = Laporan(stringUri, judul, nama, link, desc)
+                database.child("CekFakta").push().setValue(laporan).addOnSuccessListener {
+                    binding.ivFotoFakta.setImageResource(R.drawable.image)
+                    binding.etJudulFakta.text.clear()
+                    binding.etNamaFakta.text.clear()
+                    binding.etLinkFakta.text.clear()
+                    binding.etTeksFakta.text.clear()
+
+                    Toast.makeText(this, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
+                }
+
                 val bundle = Bundle()
                 bundle.putString("judul", etJudulFakta.text.toString())
                 bundle.putString("nama", etNamaFakta.text.toString())
@@ -76,5 +104,26 @@ class CekFaktaActivity : AppCompatActivity() {
             intent.putExtra("uri", stringUri)
             startActivity(intent)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("judul", etJudulFakta.text.toString())
+        outState.putString("nama", etNamaFakta.text.toString())
+        outState.putString("link", etLinkFakta.text.toString())
+        outState.putString("desc", etTeksFakta.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        judulSave = savedInstanceState.getString("judul").toString()
+        namaSave = savedInstanceState.getString("nama").toString()
+        linkSave = savedInstanceState.getString("link").toString()
+        descSave = savedInstanceState.getString("desc").toString()
+
+        binding.etJudulFakta.setText(judulSave)
+        binding.etNamaFakta.setText(namaSave)
+        binding.etLinkFakta.setText(linkSave)
+        binding.etTeksFakta.setText(descSave)
     }
 }

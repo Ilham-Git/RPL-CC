@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hoaxnews">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -9,28 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HoaxNews">
-        <activity
-            android:name=".user.DetailCekActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.DetailLaporanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admin.HasilCekActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admin.HasilLaporanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.CekFaktaActivity"
-            android:exported="false"
-            android:parentActivityName=".user.MainActivity" />
-        <activity
-            android:name=".user.LaporanActivity"
-            android:exported="false"
-            android:parentActivityName=".user.MainActivity" />
-        <activity
-            android:name=".user.MainActivity"
+
+
+        <activity android:name=".LogoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +21,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".user.MainActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity android:name=".Form_UserActivity"
+            android:exported="false" />
+
+        <activity android:name=".Form_AdminActivity"
+            android:exported="false" />
+
+        <activity android:name=".LoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.EditProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.ProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.DetailCekActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.DetailLaporanActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".admin.HasilCekActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".admin.HasilLaporanActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.CekFaktaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.LaporanActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Form_RegisterActivity"
+            android:exported="false">
+
+        </activity>
+
     </application>
 
 </manifest>

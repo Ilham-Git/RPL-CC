@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "636206588462",
+    "project_id": "rpl-cc",
+    "storage_bucket": "rpl-cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636206588462:android:a4bbb90dd319d26964f5bf",
+        "android_client_info": {
+          "package_name": "com.example.hoaxnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636206588462-2pkdj0bop6hsfcognvf69inj75s3sfhv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hoaxnews",
+            "certificate_hash": "20ee0878b20a02d3186e0cb07cca67988cf8368a"
+          }
+        },
+        {
+          "client_id": "636206588462-npe405i69nnlr1g59tbuv5s0u5viajhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhbq7YhO1s_f5tKAYiKz2eidVS8NO8MKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636206588462-npe405i69nnlr1g59tbuv5s0u5viajhe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

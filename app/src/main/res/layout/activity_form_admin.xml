@@ -12,8 +12,7 @@
         android:id="@+id/back"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        android:background="@drawable/ic_arrow_back"
-        />
+        android:background="@drawable/ic_arrow_back" />
 
     <TextView
         android:id="@+id/admin_text"
