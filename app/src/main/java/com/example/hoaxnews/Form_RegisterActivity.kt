@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar
 import com.example.hoaxnews.databinding.ActivityFormRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 class Form_RegisterActivity : AppCompatActivity() {
@@ -28,6 +30,7 @@ class Form_RegisterActivity : AppCompatActivity() {
 
     // firebase autentikasi
     private lateinit var auth: FirebaseAuth
+    private lateinit var ref : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,7 @@ class Form_RegisterActivity : AppCompatActivity() {
         progresDialog.setCanceledOnTouchOutside(false)
 
         auth = FirebaseAuth.getInstance()
+        ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("Users")
 
         binding.login.setOnClickListener {
             validasiData()
@@ -78,6 +82,8 @@ class Form_RegisterActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(namas, pass)
             .addOnSuccessListener {
+                simpanUser()
+
                 val fbuser = auth.currentUser
                 val nama = fbuser!!.displayName
                 Toast.makeText(this, "Akun berhasil dibuat dengan nama ${nama}", Toast.LENGTH_SHORT).show()
@@ -89,6 +95,20 @@ class Form_RegisterActivity : AppCompatActivity() {
                 progresDialog.dismiss()
                 Toast.makeText(this, "Gagal Login ke ${e.message} ", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun simpanUser(){
+        val currentUserId = auth.currentUser!!.uid
+        val userMap = HashMap<String, Any>()
+        userMap["id"] = currentUserId
+        userMap["nama"] = binding.username.text.toString().trim().substringBefore('@')
+        userMap["email"] = binding.username.text.toString().trim()
+
+        ref.child(currentUserId).setValue(userMap).addOnSuccessListener {
+            Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener{
+            Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

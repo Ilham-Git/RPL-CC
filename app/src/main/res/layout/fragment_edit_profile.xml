@@ -3,23 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user.FragmentEditProfile">
 
     <!-- TODO: Update blank fragment layout -->
     <View
         android:id="@+id/green_top"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="170dp"
         android:background="#04764E" />
 
     <ImageView
+        android:id="@+id/btn_kembali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_arrow_back"/>
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_arrow_back" />
 
     <View
         android:layout_width="match_parent"
@@ -27,33 +28,41 @@
         android:layout_below="@+id/green_top"
         android:background="@color/black" />
 
-    <ImageView
-        android:id="@+id/ivFotoProfile"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvFotoProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/green_top"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-70dp"
-        android:background="@drawable/profile_background"
-        android:src="@drawable/ic_baseline_person_outline_24" />
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/ivFotoProfile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/profile_background"
+            android:src="@drawable/ic_baseline_person_outline_24" />
+
+    </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/tvNamaProfile"
+        android:id="@+id/etNamaProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivFotoProfile"
+        android:layout_below="@id/cvFotoProfile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:text="Ujang"
+        android:text="..."
         android:textColor="@color/black"
-        android:textSize="36sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/tvEmail"
+        android:id="@+id/etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNamaProfile"
+        android:layout_below="@+id/etNamaProfile"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
@@ -64,15 +73,15 @@
         android:drawableStart="@drawable/ic_baseline_mail_outline_24"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Ujang@gmail.com"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/tvNomorHP"
+        android:id="@+id/etNomorHP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvEmail"
+        android:layout_below="@+id/etEmail"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
@@ -80,18 +89,18 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/textbox_profile"
+        android:drawableStart="@drawable/ic_baseline_phone_android_24"
         android:gravity="center"
         android:padding="10dp"
-        android:text="081342191919"
+        android:text=""
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:drawableStart="@drawable/ic_baseline_phone_android_24"/>
+        android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/tvLokasi"
+        android:id="@+id/etLokasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNomorHP"
+        android:layout_below="@+id/etNomorHP"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
@@ -102,7 +111,7 @@
         android:drawableStart="@drawable/ic_outline_map_24"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Makassar, Sudiang"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -110,7 +119,7 @@
         android:id="@+id/btnUbah"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvLokasi"
+        android:layout_below="@+id/etLokasi"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:padding="10dp"

@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.example.hoaxnews.databinding.ActivityFormUserBinding
 import com.example.hoaxnews.user.MainActivity
+import com.example.hoaxnews.user.UserActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
