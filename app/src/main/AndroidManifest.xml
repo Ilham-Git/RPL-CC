@@ -26,9 +26,7 @@
         </activity>
 
         <activity android:name=".user.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false"/>
 
         <activity android:name=".Form_UserActivity"
             android:exported="false" />
@@ -53,25 +51,7 @@
         <activity
             android:name=".user.UserActivity"
             android:exported="false" />
-        <activity android:name=".LogoActivity" />
-        <activity
-            android:name=".user.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Form_UserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Form_AdminActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.ProfileActivity"
-            android:exported="false" />
+
         <activity
             android:name=".user.DetailCekActivity"
             android:exported="false" />
@@ -95,18 +75,10 @@
         <activity
             android:name=".user.LaporanActivity"
             android:exported="false" />
-
-        <activity
-            android:name=".Form_RegisterActivity"
-            android:exported="false">
             
         <activity
             android:name=".EdukasiActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-        </activity>
+            android:exported="true"/>
 
     </application>
 
