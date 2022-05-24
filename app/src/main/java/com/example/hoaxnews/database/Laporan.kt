@@ -8,7 +8,7 @@ data class Laporan(
     val title: String? = null,
     val name: String? = null,
     val link: String? = null,
-    val desc: String? = null
-){
-
+    val desc: String? = null,
+    val status: String? = null){
+    constructor():this("","","","","","")
 }
