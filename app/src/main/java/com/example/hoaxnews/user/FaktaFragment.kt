@@ -10,8 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.hoaxnews.R
+import com.example.hoaxnews.database.CekFakta
 import com.example.hoaxnews.database.Laporan
-import com.example.hoaxnews.databinding.FragmentReportBinding
+import com.example.hoaxnews.databinding.FragmentFaktaBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -19,9 +20,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 
 
-class ReportFragment : Fragment() {
+class FaktaFragment : Fragment() {
 
-    private lateinit var binding: FragmentReportBinding
+    private lateinit var binding: FragmentFaktaBinding
     private lateinit var database: DatabaseReference
     lateinit var ImageUri : Uri
     var count : Int = 0
@@ -30,67 +31,64 @@ class ReportFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentReportBinding.inflate(layoutInflater)
 
-        database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Laporan")
+        binding = FragmentFaktaBinding.inflate(layoutInflater)
+
+        database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cek Fakta")
 
         count = 0
 
-        // Button Lapor
-        binding.btnKirimLapor.setOnClickListener {
-
-            val id_laporan = database.push().key
-            val judul = binding.etJudulLapor.text.toString()
-            val nama = binding.etNamaLapor.text.toString()
-            val link = binding.etLinkLapor.text.toString()
-            val desc = binding.etTeksLapor.text.toString()
+        binding.btnKirimFakta.setOnClickListener {
+            val id_fakta = database.push().key
+            val judul = binding.etJudulFakta.text.toString()
+            val nama = binding.etNamaFakta.text.toString()
+            val link = binding.etLinkFakta.text.toString()
+            val desc = binding.etTeksFakta.text.toString()
 
             // Validasi form
             if(count != 1){
                 Toast.makeText(context,"Masukkan Foto!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }else if(judul.isEmpty()){
-                binding.etJudulLapor.error = "Masukkan judul!"
-                binding.etJudulLapor.requestFocus()
+                binding.etJudulFakta.error = "Masukkan judul!"
+                binding.etJudulFakta.requestFocus()
                 return@setOnClickListener
             }else if(nama.isEmpty()) {
-                binding.etNamaLapor.error = "Masukkan nama!"
-                binding.etNamaLapor.requestFocus()
+                binding.etNamaFakta.error = "Masukkan nama!"
+                binding.etNamaFakta.requestFocus()
                 return@setOnClickListener
             } else if(link.isEmpty()) {
-                binding.etLinkLapor.error = "Masukkan link!"
-                binding.etLinkLapor.requestFocus()
+                binding.etLinkFakta.error = "Masukkan link!"
+                binding.etLinkFakta.requestFocus()
                 return@setOnClickListener
             } else if(desc.isEmpty()) {
-                binding.etTeksLapor.error = "Masukkan Teks!"
-                binding.etTeksLapor.requestFocus()
+                binding.etTeksFakta.error = "Masukkan Teks!"
+                binding.etTeksFakta.requestFocus()
                 return@setOnClickListener
             }
 
-            val imageRef = FirebaseStorage.getInstance().reference.child("gambarLaporan/${id_laporan}")
+            val imageRef = FirebaseStorage.getInstance().reference.child("gambarFakta/${id_fakta}")
             imageRef.putFile(ImageUri!!).addOnSuccessListener{
                 val uriTask : Task<Uri> = it.storage.downloadUrl
 
                 while (!uriTask.isSuccessful);
                 val uploadedImageUrl = "${uriTask.result}"
 
-                laporBerita(id_laporan, uploadedImageUrl, judul, nama, link, desc)
+                laporFakta(id_fakta, uploadedImageUrl, judul, nama, link, desc)
             }
-
         }
 
         // Button Gambar
-        binding.ivFotoLapor.setOnClickListener {
+        binding.ivFotoFakta.setOnClickListener {
             pickImageGalery()
         }
 
         // Button menuju lapor
-        val fragmentFakta = FaktaFragment()
+        val fragmentLapor = ReportFragment()
 
-        binding.btnCekFakta.setOnClickListener {
+        binding.btnLaporBerita.setOnClickListener {
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragment_container, fragmentFakta, FaktaFragment::class.java.simpleName)
+                replace(R.id.fragment_container, fragmentLapor, ReportFragment::class.java.simpleName)
                     .commit()
             }
         }
@@ -98,7 +96,7 @@ class ReportFragment : Fragment() {
         return binding.root
     }
 
-    private fun laporBerita(id_laporan : String?,
+    private fun laporFakta(id_fakta : String?,
                             uploadedImageUrl : String,
                             judul : String,
                             nama : String,
@@ -107,16 +105,16 @@ class ReportFragment : Fragment() {
 
         val status = "Sedang Di Proses"
 
-        val laporan = Laporan(uploadedImageUrl, judul, nama, link, desc, status)
+        val CekFakta = CekFakta(uploadedImageUrl, judul, nama, link, desc, status)
 
 
-        if(id_laporan != null) {
-            database.child(id_laporan).setValue(laporan).addOnSuccessListener {
-                binding.ivFotoLapor.setImageResource(R.drawable.image)
-                binding.etJudulLapor.text.clear()
-                binding.etNamaLapor.text.clear()
-                binding.etLinkLapor.text.clear()
-                binding.etTeksLapor.text.clear()
+        if(id_fakta != null) {
+            database.child(id_fakta).setValue(CekFakta).addOnSuccessListener {
+                binding.ivFotoFakta.setImageResource(R.drawable.image)
+                binding.etJudulFakta.text.clear()
+                binding.etNamaFakta.text.clear()
+                binding.etLinkFakta.text.clear()
+                binding.etTeksFakta.text.clear()
                 count = 0
 
                 Toast.makeText(context, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
@@ -144,7 +142,7 @@ class ReportFragment : Fragment() {
             Picasso.get()
                 .load(ImageUri)
                 .resize(200,100)
-                .into(binding.ivFotoLapor)
+                .into(binding.ivFotoFakta)
 
         }
     }

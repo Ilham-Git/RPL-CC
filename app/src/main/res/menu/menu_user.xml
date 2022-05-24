@@ -7,10 +7,6 @@
         android:icon="@drawable/ic_home"
         android:title="Beranda" />
     <item
-        android:id="@+id/menu_lokal"
-        android:icon="@drawable/ic_layout"
-        android:title="Lokal" />
-    <item
         android:id="@+id/menu_lapor"
         android:icon="@drawable/ic_megaphone"
         android:title="Lapor" />

@@ -8,10 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoaxnews.R
+import com.example.hoaxnews.database.Laporan
 import com.example.hoaxnews.model.Users
 import com.squareup.picasso.Picasso
 
-class LocalAdapter (private val localList : ArrayList<Users>,
+class LocalAdapter (private val localList : ArrayList<Laporan>,
                     private val listener: OnItemClickListener
                     ):
     RecyclerView.Adapter<LocalAdapter.LocalViewHolder>() {
@@ -40,10 +41,10 @@ class LocalAdapter (private val localList : ArrayList<Users>,
     override fun onBindViewHolder(holder: LocalViewHolder, position: Int) {
         val currentItem = localList[position]
 
-        holder.judul.text = currentItem.nama
-        if (!currentItem.gambar.isNullOrEmpty()) {
+        holder.judul.text = currentItem.title
+        if (!currentItem.image.isNullOrEmpty()) {
             Picasso.get()
-                .load(currentItem.gambar)
+                .load(currentItem.image)
                 .resize(100, 100)
                 .centerCrop()
                 .into(holder.gambar)

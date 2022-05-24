@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoaxnews.R
+import com.example.hoaxnews.database.Laporan
 import com.example.hoaxnews.databinding.FragmentLocalBinding
 import com.example.hoaxnews.model.Users
 import com.google.firebase.database.*
@@ -19,7 +20,7 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
 
     lateinit var binding : FragmentLocalBinding
     private lateinit var ref: DatabaseReference
-    private lateinit var localArrayList : ArrayList<Users>
+    private lateinit var localArrayList : ArrayList<Laporan>
     private lateinit var adapter: LocalAdapter
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
         binding.localList.layoutManager = LinearLayoutManager(context)
         binding.localList.setHasFixedSize(true)
 
-        localArrayList = arrayListOf<Users>()
+        localArrayList = arrayListOf<Laporan>()
 
         adapter = LocalAdapter(localArrayList, this)
 
@@ -40,23 +41,23 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
 
 
         // Search bar
-//        binding.etBerita.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//
-//            }
-//
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                val searchText = binding.etBerita.text.toString()
-//
-//                getLocalData(searchText)
-//
-//                adapter.notifyDataSetChanged()
-//            }
-//
-//            override fun afterTextChanged(p0: Editable?) {
-//
-//            }
-//        })
+        binding.etBerita.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val searchText = binding.etBerita.text.toString()
+
+                getLocalData(searchText)
+
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        })
 
         getLocalData("")
 
@@ -65,9 +66,9 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
 
 
     private fun getLocalData(search: String){
-        ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users")
+        ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Laporan")
 
-        val firebaseSearchQuery = ref.orderByChild("nama").startAt(search).endAt(search + "\uf8ff")
+        val firebaseSearchQuery = ref.orderByChild("title").startAt(search).endAt(search + "\uf8ff")
 
 
         firebaseSearchQuery.addValueEventListener(object : ValueEventListener {
@@ -75,7 +76,7 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
                 localArrayList.clear()
                 for(localSnapshot in snapshot.children){
 
-                    val local = localSnapshot.getValue(Users::class.java)
+                    val local = localSnapshot.getValue(Laporan::class.java)
                     localArrayList.add(local!!)
                 }
                 binding.localList.adapter = LocalAdapter(localArrayList, this@LocalFragment)
@@ -91,9 +92,9 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
     override fun onItemClick(position: Int) {
         val local = localArrayList.get(position)
         val bundle = Bundle()
-        bundle.putString("nama", local.nama)
-        if (!local.gambar.isNullOrEmpty()) {
-            bundle.putString("gambar", local.gambar)
+        bundle.putString("nama", local.title)
+        if (!local.image.isNullOrEmpty()) {
+            bundle.putString("gambar", local.image)
         }
         val localDetailFragment = LocalDetailFragment()
         localDetailFragment.arguments = bundle

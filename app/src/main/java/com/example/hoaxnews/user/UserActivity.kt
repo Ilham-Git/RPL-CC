@@ -15,12 +15,13 @@ class UserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
+        replaceFragment(fragmentLokal)
 
         bottom_navigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_profil -> replaceFragment(fragmentProfile)
                 R.id.menu_lapor -> replaceFragment(fragmentReport)
-                R.id.menu_lokal -> replaceFragment(fragmentLokal)
+                R.id.menu_beranda -> replaceFragment(fragmentLokal)
             }
             true
         }
