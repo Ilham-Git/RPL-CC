@@ -1,6 +1,5 @@
 package com.example.hoaxnews.user
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,53 +9,52 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hoaxnews.EdukasiActivity
 import com.example.hoaxnews.R
 import com.example.hoaxnews.database.Laporan
-import com.example.hoaxnews.databinding.FragmentLocalBinding
+import com.example.hoaxnews.databinding.FragmentRiwayatLaporanBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
-class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
+class RiwayatLaporanFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
 
-    lateinit var binding : FragmentLocalBinding
+    lateinit var binding: FragmentRiwayatLaporanBinding
     private lateinit var ref: DatabaseReference
-    private lateinit var localArrayList : ArrayList<Laporan>
-    private lateinit var adapter: LocalAdapter
+    lateinit var auth: FirebaseAuth
+    private lateinit var firebaseUser: FirebaseUser
+    private lateinit var laporanArrayList : ArrayList<Laporan>
+    private lateinit var adapter: RiwayatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentLocalBinding.inflate(layoutInflater)
 
-        binding.localList.layoutManager = LinearLayoutManager(context)
-        binding.localList.setHasFixedSize(true)
+        binding = FragmentRiwayatLaporanBinding.inflate(layoutInflater)
 
-        localArrayList = arrayListOf<Laporan>()
+        auth = FirebaseAuth.getInstance()
+        firebaseUser = auth.currentUser!!
 
-        adapter = LocalAdapter(localArrayList, this)
+        binding.laporanlList.layoutManager = LinearLayoutManager(context)
+        binding.laporanlList.setHasFixedSize(true)
 
-        binding.localList.adapter = adapter
+        laporanArrayList = arrayListOf<Laporan>()
 
-        // Button Edukasi
-        binding.btnEdukasi.setOnClickListener{
-            val intent = Intent(context, EdukasiActivity::class.java)
-            startActivity(intent)
-        }
+        adapter = RiwayatAdapter(laporanArrayList, this)
 
+        binding.laporanlList.adapter = adapter
 
         // Search bar
-        binding.etBerita.addTextChangedListener(object : TextWatcher {
+        binding.etLaporan.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val searchText = binding.etBerita.text.toString()
+                val searchText = binding.etLaporan.text.toString()
 
-                getLocalData(searchText)
+                getRiwayatData(searchText)
 
                 adapter.notifyDataSetChanged()
             }
@@ -66,14 +64,13 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
             }
         })
 
-        getLocalData("")
+        getRiwayatData("")
 
         return binding.root
     }
 
-
-    private fun getLocalData(search: String){
-        binding.pbBerita.setVisibility(View.VISIBLE)
+    private fun getRiwayatData(search: String){
+        binding.pbLaporan.setVisibility(View.VISIBLE)
         ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Laporan")
 
         val firebaseSearchQuery = ref.orderByChild("title").startAt(search).endAt(search + "\uf8ff")
@@ -81,15 +78,15 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
 
         firebaseSearchQuery.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                localArrayList.clear()
-                for(localSnapshot in snapshot.children){
-                    if (localSnapshot.child("status").getValue()!!.equals("Hoax")) {
-                        val local = localSnapshot.getValue(Laporan::class.java)
-                        localArrayList.add(local!!)
+                laporanArrayList.clear()
+                for(riwayatSnapshot in snapshot.children){
+                    if (riwayatSnapshot.child("id_user").getValue()!!.equals(firebaseUser.uid)) {
+                        val local = riwayatSnapshot.getValue(Laporan::class.java)
+                        laporanArrayList.add(local!!)
                     }
                 }
-                binding.pbBerita.setVisibility(View.GONE)
-                binding.localList.adapter = LocalAdapter(localArrayList, this@LocalFragment)
+                binding.pbLaporan.setVisibility(View.GONE)
+                binding.laporanlList.adapter = RiwayatAdapter(laporanArrayList, this@RiwayatLaporanFragment)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -100,7 +97,7 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val local = localArrayList.get(position)
+        val local = laporanArrayList.get(position)
         val bundle = Bundle()
         bundle.putString("nama", local.title)
         if (!local.image.isNullOrEmpty()) {
@@ -115,4 +112,5 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
                 .commit()
         }
     }
+
 }

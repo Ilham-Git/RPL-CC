@@ -45,41 +45,41 @@ class LaporanActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
        if (count == 1){
-           val stringUri = getIntent().getStringExtra("uri")
-           val uri = Uri.parse(stringUri)
-           binding.ivFotoLapor.setImageURI(uri)
-
-           binding.btnKirimLapor.setOnClickListener {
-               val judul = binding.etJudulLapor.text.toString()
-               val nama = binding.etNamaLapor.text.toString()
-               val link = binding.etLinkLapor.text.toString()
-               val desc = binding.etTeksLapor.text.toString()
-
-               val bundle = Bundle()
-               bundle.putString("judul", judul)
-               bundle.putString("nama", nama)
-               bundle.putString("link", link)
-               bundle.putString("desc", desc)
-
-               database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference()
-               val laporan = Laporan(stringUri, judul, nama, link, desc)
-               database.child("Laporan").push().setValue(laporan).addOnSuccessListener {
-                   binding.ivFotoLapor.setImageResource(R.drawable.image)
-                   binding.etJudulLapor.text.clear()
-                   binding.etNamaLapor.text.clear()
-                   binding.etLinkLapor.text.clear()
-                   binding.etTeksLapor.text.clear()
-
-                   Toast.makeText(this, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
-               }.addOnFailureListener {
-                   Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
-               }
-
-               val intent = Intent(this, HasilLaporanActivity::class.java)
-               intent.putExtras(bundle)
-               intent.putExtra("uri", stringUri)
-               startActivity(intent)
-           }
+//           val stringUri = getIntent().getStringExtra("uri")
+//           val uri = Uri.parse(stringUri)
+//           binding.ivFotoLapor.setImageURI(uri)
+//
+//           binding.btnKirimLapor.setOnClickListener {
+//               val judul = binding.etJudulLapor.text.toString()
+//               val nama = binding.etNamaLapor.text.toString()
+//               val link = binding.etLinkLapor.text.toString()
+//               val desc = binding.etTeksLapor.text.toString()
+//
+//               val bundle = Bundle()
+//               bundle.putString("judul", judul)
+//               bundle.putString("nama", nama)
+//               bundle.putString("link", link)
+//               bundle.putString("desc", desc)
+//
+//               database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference()
+//               val laporan = Laporan(stringUri, judul, nama, link, desc)
+//               database.child("Laporan").push().setValue(laporan).addOnSuccessListener {
+//                   binding.ivFotoLapor.setImageResource(R.drawable.image)
+//                   binding.etJudulLapor.text.clear()
+//                   binding.etNamaLapor.text.clear()
+//                   binding.etLinkLapor.text.clear()
+//                   binding.etTeksLapor.text.clear()
+//
+//                   Toast.makeText(this, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
+//               }.addOnFailureListener {
+//                   Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
+//               }
+//
+//               val intent = Intent(this, HasilLaporanActivity::class.java)
+//               intent.putExtras(bundle)
+//               intent.putExtra("uri", stringUri)
+//               startActivity(intent)
+//           }
        } else {
            binding.btnKirimLapor.setOnClickListener {
                Toast.makeText(this, "Lengkapi Form Pelaporan Berita", Toast.LENGTH_SHORT).show()

@@ -13,6 +13,8 @@ import com.example.hoaxnews.R
 import com.example.hoaxnews.database.Laporan
 import com.example.hoaxnews.databinding.FragmentReportBinding
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -23,6 +25,8 @@ class ReportFragment : Fragment() {
 
     private lateinit var binding: FragmentReportBinding
     private lateinit var database: DatabaseReference
+    lateinit var auth: FirebaseAuth
+    private lateinit var firebaseUser: FirebaseUser
     lateinit var ImageUri : Uri
     var count : Int = 0
 
@@ -33,6 +37,8 @@ class ReportFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentReportBinding.inflate(layoutInflater)
 
+        auth = FirebaseAuth.getInstance()
+        firebaseUser = auth.currentUser!!
         database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Laporan")
 
         count = 0
@@ -106,8 +112,9 @@ class ReportFragment : Fragment() {
                             desc : String){
 
         val status = "Sedang Di Proses"
+        val id = firebaseUser.uid
 
-        val laporan = Laporan(uploadedImageUrl, judul, nama, link, desc, status)
+        val laporan = Laporan(id, uploadedImageUrl, judul, nama, link, desc, status)
 
 
         if(id_laporan != null) {

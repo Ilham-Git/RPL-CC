@@ -11,6 +11,7 @@ class UserActivity : AppCompatActivity() {
     private val fragmentProfile = FragmentProfile()
     private val fragmentLokal = LocalFragment()
     private val fragmentReport = ReportFragment()
+    private val fragmentRiwayat = RiwayatLaporanFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +21,7 @@ class UserActivity : AppCompatActivity() {
         bottom_navigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_profil -> replaceFragment(fragmentProfile)
+                R.id.menu_riwayat -> replaceFragment(fragmentRiwayat)
                 R.id.menu_lapor -> replaceFragment(fragmentReport)
                 R.id.menu_beranda -> replaceFragment(fragmentLokal)
             }
