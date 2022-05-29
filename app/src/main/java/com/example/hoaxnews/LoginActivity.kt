@@ -18,8 +18,8 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this, Form_UserActivity::class.java))
             }
 
-            binding.admin.setOnClickListener {
-                startActivity(Intent(this, Form_AdminActivity::class.java))
+            binding.regis.setOnClickListener {
+                startActivity(Intent(this, Form_RegisterActivity::class.java))
             }
 
     }

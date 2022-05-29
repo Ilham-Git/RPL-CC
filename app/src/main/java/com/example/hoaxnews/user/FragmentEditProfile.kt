@@ -1,9 +1,11 @@
 package com.example.hoaxnews.user
 
 import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,7 @@ class FragmentEditProfile : Fragment() {
     lateinit var auth: FirebaseAuth
     lateinit var ImageUri: Uri
     private lateinit var firebaseUser: FirebaseUser
+    private lateinit var progressDialog: ProgressDialog
     var imageEdited : Boolean = false
 
     override fun onCreateView(
@@ -41,6 +44,11 @@ class FragmentEditProfile : Fragment() {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
+
+        progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Mohon tunggu sebentar")
+        progressDialog.setMessage("Mengupdate Profile")
+        progressDialog.setCanceledOnTouchOutside(false)
 
         val fragmentProfile = FragmentProfile()
 
@@ -55,6 +63,16 @@ class FragmentEditProfile : Fragment() {
 
         // Gambar Profile
         binding.ivFotoProfile.setOnClickListener{
+            val email = binding.etEmail.text.toString().trim()
+
+            if (email.isEmpty()){
+                binding.etEmail.error = "Email kosong!"
+                binding.etEmail.requestFocus()
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                binding.etEmail.error = "Email tidak valid!"
+                binding.etEmail.requestFocus()
+            }
+
             imageGallery()
         }
 
@@ -73,43 +91,8 @@ class FragmentEditProfile : Fragment() {
         return binding.root
     }
 
-    // Mengupdate data User
+    // Mengupdate data User dengan gambar
     private fun updateProfilewithImage(uploadedImageUrl: String) {
-            val nama = binding.etNamaProfile.text.toString().trim()
-            val email = binding.etEmail.text.toString().trim()
-            val no_hp = binding.etNomorHP.text.toString().trim()
-            val lokasi = binding.etLokasi.text.toString().trim()
-
-            val userMap = HashMap<String, Any>()
-            userMap["id"] = firebaseUser.uid
-            userMap["nama"] = nama
-            userMap["email"] = email
-            userMap["no_hp"] = no_hp
-            userMap["lokasi"] = lokasi
-            userMap["gambar"] = uploadedImageUrl
-
-            val ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.uid)
-            ref.updateChildren(userMap).addOnCompleteListener{
-                if(it.isSuccessful){
-                    val fragmentProfile = FragmentProfile()
-                    fragmentManager?.beginTransaction()?.apply {
-                        replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
-                            .commit()
-                    }
-                    Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    val fragmentProfile = FragmentProfile()
-                    fragmentManager?.beginTransaction()?.apply {
-                        replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
-                            .commit()
-                    }
-                    Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
-    private fun updateProfilewithoutImage() {
         val nama = binding.etNamaProfile.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
         val no_hp = binding.etNomorHP.text.toString().trim()
@@ -121,25 +104,115 @@ class FragmentEditProfile : Fragment() {
         userMap["email"] = email
         userMap["no_hp"] = no_hp
         userMap["lokasi"] = lokasi
+        userMap["gambar"] = uploadedImageUrl
+
+        progressDialog.show()
 
         val ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.uid)
-        ref.updateChildren(userMap).addOnCompleteListener{
-            if(it.isSuccessful){
-                val fragmentProfile = FragmentProfile()
-                fragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
-                        .commit()
+        firebaseUser.updateEmail(email).addOnSuccessListener {
+            ref.updateChildren(userMap).addOnCompleteListener{
+                if(it.isSuccessful){
+                    val fragmentProfile = FragmentProfile()
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                            .commit()
+                    }
+                    progressDialog.dismiss()
+                    Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                val fragmentProfile = FragmentProfile()
-                fragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
-                        .commit()
+                else{
+                    val fragmentProfile = FragmentProfile()
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                            .commit()
+                    }
+                    progressDialog.dismiss()
+                    Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
             }
+        }.addOnFailureListener{
+            val fragmentProfile = FragmentProfile()
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragment_container, fragmentProfile, FragmentProfile::class.java.simpleName)
+                    .commit()
+            }
+            progressDialog.dismiss()
+            Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Mengupdate data user tanpa gambar
+    private fun updateProfilewithoutImage() {
+        val nama = binding.etNamaProfile.text.toString().trim()
+        val email = binding.etEmail.text.toString().trim()
+        val no_hp = binding.etNomorHP.text.toString().trim()
+        val lokasi = binding.etLokasi.text.toString().trim()
+
+        if (email.isEmpty()){
+            binding.etEmail.error = "Email kosong!"
+            binding.etEmail.requestFocus()
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.etEmail.error = "Email tidak valid!"
+            binding.etEmail.requestFocus()
+        }
+
+        progressDialog.show()
+
+        val userMap = HashMap<String, Any>()
+        userMap["id"] = firebaseUser.uid
+        userMap["nama"] = nama
+        userMap["email"] = email
+        userMap["no_hp"] = no_hp
+        userMap["lokasi"] = lokasi
+
+        val ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.uid)
+
+        // Ganti Email Di Authentication
+        firebaseUser.updateEmail(email).addOnSuccessListener {
+
+            // Ganti data di Realtime Database
+            ref.updateChildren(userMap).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val fragmentProfile = FragmentProfile()
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(
+                            R.id.fragment_container,
+                            fragmentProfile,
+                            FragmentProfile::class.java.simpleName
+                        )
+                            .commit()
+                    }
+                    progressDialog.dismiss()
+                    Toast.makeText(context, "Profil telah diupdate", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    val fragmentProfile = FragmentProfile()
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(
+                            R.id.fragment_container,
+                            fragmentProfile,
+                            FragmentProfile::class.java.simpleName
+                        )
+                            .commit()
+                    }
+                    progressDialog.dismiss()
+                    Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        }.addOnFailureListener {
+
+            val fragmentProfile = FragmentProfile()
+            fragmentManager?.beginTransaction()?.apply {
+                replace(
+                    R.id.fragment_container,
+                    fragmentProfile,
+                    FragmentProfile::class.java.simpleName
+                )
+                    .commit()
+            }
+            progressDialog.dismiss()
+            Toast.makeText(context, "Profil gagal diupdate", Toast.LENGTH_SHORT).show()
         }
     }
 

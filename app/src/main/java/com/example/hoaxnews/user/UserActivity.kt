@@ -1,5 +1,6 @@
 package com.example.hoaxnews.user
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,15 +11,20 @@ class UserActivity : AppCompatActivity() {
 
     private val fragmentProfile = FragmentProfile()
     private val fragmentLokal = LocalFragment()
+    private val fragmentReport = ReportFragment()
+    private val fragmentRiwayat = RiwayatLaporanFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
+        replaceFragment(fragmentLokal)
 
         bottom_navigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_profil -> replaceFragment(fragmentProfile)
-                R.id.menu_lokal -> replaceFragment(fragmentLokal)
+                R.id.menu_riwayat -> replaceFragment(fragmentRiwayat)
+                R.id.menu_lapor -> replaceFragment(fragmentReport)
+                R.id.menu_beranda -> replaceFragment(fragmentLokal)
             }
             true
         }
@@ -30,5 +36,10 @@ class UserActivity : AppCompatActivity() {
             transaction.replace(R.id.fragment_container, fragment)
             transaction.commit()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, UserActivity::class.java))
     }
 }

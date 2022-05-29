@@ -40,41 +40,41 @@ class CekFaktaActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         if (hitung == 1) {
-            val stringUri = getIntent().getStringExtra("uri")
-            val uri = Uri.parse(stringUri)
-            binding.ivFotoFakta.setImageURI(uri)
-
-            binding.btnKirimFakta.setOnClickListener {
-                val judul = binding.etJudulFakta.text.toString()
-                val nama = binding.etNamaFakta.text.toString()
-                val link = binding.etLinkFakta.text.toString()
-                val desc = binding.etTeksFakta.text.toString()
-
-                database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference()
-                val laporan = Laporan(stringUri, judul, nama, link, desc)
-                database.child("CekFakta").push().setValue(laporan).addOnSuccessListener {
-                    binding.ivFotoFakta.setImageResource(R.drawable.image)
-                    binding.etJudulFakta.text.clear()
-                    binding.etNamaFakta.text.clear()
-                    binding.etLinkFakta.text.clear()
-                    binding.etTeksFakta.text.clear()
-
-                    Toast.makeText(this, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
-                }
-
-                val bundle = Bundle()
-                bundle.putString("judul", etJudulFakta.text.toString())
-                bundle.putString("nama", etNamaFakta.text.toString())
-                bundle.putString("link", etLinkFakta.text.toString())
-                bundle.putString("desc", etTeksFakta.text.toString())
-
-                val intent = Intent(this, HasilCekActivity::class.java)
-                intent.putExtras(bundle)
-                intent.putExtra("uri", stringUri)
-                startActivity(intent)
-            }
+//            val stringUri = getIntent().getStringExtra("uri")
+//            val uri = Uri.parse(stringUri)
+//            binding.ivFotoFakta.setImageURI(uri)
+//
+//            binding.btnKirimFakta.setOnClickListener {
+//                val judul = binding.etJudulFakta.text.toString()
+//                val nama = binding.etNamaFakta.text.toString()
+//                val link = binding.etLinkFakta.text.toString()
+//                val desc = binding.etTeksFakta.text.toString()
+//
+//                database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference()
+//                val laporan = Laporan(stringUri, judul, nama, link, desc)
+//                database.child("CekFakta").push().setValue(laporan).addOnSuccessListener {
+//                    binding.ivFotoFakta.setImageResource(R.drawable.image)
+//                    binding.etJudulFakta.text.clear()
+//                    binding.etNamaFakta.text.clear()
+//                    binding.etLinkFakta.text.clear()
+//                    binding.etTeksFakta.text.clear()
+//
+//                    Toast.makeText(this, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
+//                }
+//
+//                val bundle = Bundle()
+//                bundle.putString("judul", etJudulFakta.text.toString())
+//                bundle.putString("nama", etNamaFakta.text.toString())
+//                bundle.putString("link", etLinkFakta.text.toString())
+//                bundle.putString("desc", etTeksFakta.text.toString())
+//
+//                val intent = Intent(this, HasilCekActivity::class.java)
+//                intent.putExtras(bundle)
+//                intent.putExtra("uri", stringUri)
+//                startActivity(intent)
+//            }
         } else {
             binding.btnKirimFakta.setOnClickListener {
                 Toast.makeText(this, "Lengkapi Form Cek Fakta", Toast.LENGTH_SHORT).show()

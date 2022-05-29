@@ -29,8 +29,9 @@
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC/app/src/main/res/layout/fragment_cekfakta.xml" value="0.264" />
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC/app/src/main/res/layout/fragment_laporan.xml" value="0.264" />
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC3/app/src/main/res/layout/activity_form_admin.xml" value="0.17346014492753623" />
-        <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC3/app/src/main/res/layout/activity_form_user.xml" value="0.17346014492753623" />
+        <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC3/app/src/main/res/layout/activity_form_user.xml" value="0.264" />
         <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC3/app/src/main/res/layout/activity_laporan.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/LENOVO/Documents/GitHub/RPL-CC3/app/src/main/res/layout/activity_login.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/Mila/ooka/app/src/main/res/drawable/border_bottom.xml" value="0.1805" />
         <entry key="..\:/Users/Mila/ooka/app/src/main/res/drawable/border_outline.xml" value="0.1805" />
         <entry key="..\:/Users/Mila/ooka/app/src/main/res/drawable/ic_drop_arrow.xml" value="0.1805" />
@@ -42,6 +43,7 @@
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/drawable/textbox_profile.xml" value="0.17" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_cek_fakta.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_edit_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_edukasi.xml" value="0.5546875" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_form_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_hasil_laporan.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_laporan.xml" value="0.25416666666666665" />
@@ -51,11 +53,15 @@
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/activity_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_cekfakta.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_edit_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_fakta.xml" value="0.5546875" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_laporan.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_local.xml" value="0.5546875" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_local_detail.xml" value="0.5546875" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_report.xml" value="0.5546875" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/fragment_riwayat_laporan.xml" value="0.5546875" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/local_item.xml" value="0.5546875" />
+        <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/layout/riwayat_item.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/yusuf/AndroidStudioProjects/RPL-CC/app/src/main/res/menu/menu_user.xml" value="0.25416666666666665" />
       </map>
     </option>

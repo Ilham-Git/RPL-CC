@@ -1,6 +1,5 @@
 package com.example.hoaxnews.user
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoaxnews.R
 import com.example.hoaxnews.database.Laporan
-import com.example.hoaxnews.model.Users
 import com.squareup.picasso.Picasso
 
-class LocalAdapter (private val localList : ArrayList<Laporan>,
-                    private val listener: OnItemClickListener
-                    ):
-    RecyclerView.Adapter<LocalAdapter.LocalViewHolder>() {
+class RiwayatAdapter(private val riwayatList : ArrayList<Laporan>,
+                     private val listener: OnItemClickListener
+                     ):
+    RecyclerView.Adapter<RiwayatAdapter.RiwayatViewHolder>() {
 
-    inner class LocalViewHolder (itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    inner class RiwayatViewHolder (itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val judul : TextView = itemView.findViewById(R.id.tvJudul)
         val gambar : ImageView = itemView.findViewById(R.id.iv_gambarberita)
+        val status : TextView = itemView.findViewById(R.id.tv_status)
 
         init {
             itemView.setOnClickListener(this)
@@ -32,14 +31,14 @@ class LocalAdapter (private val localList : ArrayList<Laporan>,
             }
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.local_item, parent, false)
-        return LocalViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
+    ): RiwayatAdapter.RiwayatViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.riwayat_item, parent, false)
+        return RiwayatViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: LocalViewHolder, position: Int) {
-        val currentItem = localList[position]
+    override fun onBindViewHolder(holder: RiwayatAdapter.RiwayatViewHolder, position: Int) {
+        val currentItem = riwayatList[position]
 
         holder.judul.text = currentItem.title
         if (!currentItem.image.isNullOrEmpty()) {
@@ -49,10 +48,11 @@ class LocalAdapter (private val localList : ArrayList<Laporan>,
                 .centerCrop()
                 .into(holder.gambar)
         }
+        holder.status.text = currentItem.status
     }
 
     override fun getItemCount(): Int {
-        return localList.size
+        return riwayatList.size
     }
 
     interface OnItemClickListener{

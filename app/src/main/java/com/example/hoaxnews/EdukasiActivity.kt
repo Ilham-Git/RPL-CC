@@ -1,7 +1,9 @@
 package com.example.hoaxnews
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.hoaxnews.user.UserActivity
 import kotlinx.android.synthetic.main.activity_edukasi.*
 import java.util.ArrayList
 
@@ -12,6 +14,11 @@ class EdukasiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edukasi)
+
+        btn_back.setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        }
 
         initData()
         setRecyclerView()

@@ -68,13 +68,13 @@
         android:drawableStart="@drawable/ic_baseline_person_outline_24"
         android:paddingHorizontal="30dp"
         android:paddingVertical="6dp"
-        android:text="Masuk Sebagai Pengguna"
+        android:text="Masuk"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/admin"
+        android:id="@+id/regis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/user"
@@ -82,7 +82,7 @@
         android:background="@drawable/textbox_profile"
         android:drawableStart="@drawable/ic_baseline_person_outline_24"
         android:paddingHorizontal="30dp"
-        android:text="Masuk Sebagai Admin"
+        android:text="Daftar"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />

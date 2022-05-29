@@ -57,14 +57,14 @@
         android:drawableStart="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
         android:hint="Masukkan Nama Anda"
+        android:drawableTint="@color/hijau"
+        android:lines="1"
+        android:maxLines="1"
         android:paddingHorizontal="20dp"
         android:paddingVertical="15dp"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:maxLines="1"
-        android:lines="1"
         android:singleLine="true"
-        />
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
