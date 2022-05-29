@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoaxnews.R
 import com.example.hoaxnews.database.Laporan
 import com.example.hoaxnews.databinding.FragmentLocalBinding
-import com.example.hoaxnews.model.Users
 import com.google.firebase.database.*
 
 
@@ -66,6 +65,7 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
 
 
     private fun getLocalData(search: String){
+        binding.pbBerita.setVisibility(View.VISIBLE)
         ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Laporan")
 
         val firebaseSearchQuery = ref.orderByChild("title").startAt(search).endAt(search + "\uf8ff")
@@ -75,10 +75,12 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 localArrayList.clear()
                 for(localSnapshot in snapshot.children){
-
-                    val local = localSnapshot.getValue(Laporan::class.java)
-                    localArrayList.add(local!!)
+                    if (localSnapshot.child("status").getValue()!!.equals("Hoax")) {
+                        val local = localSnapshot.getValue(Laporan::class.java)
+                        localArrayList.add(local!!)
+                    }
                 }
+                binding.pbBerita.setVisibility(View.GONE)
                 binding.localList.adapter = LocalAdapter(localArrayList, this@LocalFragment)
             }
 
@@ -96,6 +98,8 @@ class LocalFragment : Fragment(), LocalAdapter.OnItemClickListener {
         if (!local.image.isNullOrEmpty()) {
             bundle.putString("gambar", local.image)
         }
+        bundle.putString("isi", local.desc)
+        bundle.putString("sumber", local.link)
         val localDetailFragment = LocalDetailFragment()
         localDetailFragment.arguments = bundle
         fragmentManager?.beginTransaction()?.apply {

@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user.FragmentProfile">
 
-    <!-- TODO: Update blank fragment layout -->
     <View
         android:id="@+id/green_top"
         android:layout_width="match_parent"
@@ -36,6 +35,15 @@
             android:src="@drawable/ic_baseline_person_outline_24" />
 
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_logout"/>
 
     <ImageView
         android:id="@+id/btn_edit"
@@ -121,9 +129,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="10dp"
         android:text="PENTING \nHoax itu bahaya!"
         android:textColor="@color/black"
         android:textSize="18sp"

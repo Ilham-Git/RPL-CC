@@ -22,6 +22,8 @@ class LocalDetailFragment : Fragment() {
 
         val args = this.arguments
         val judul = args?.get("nama")
+        val isi = args?.get("isi")
+        val sumber = args?.get("sumber")
 
         val gambar = args?.get("gambar")
 
@@ -33,6 +35,8 @@ class LocalDetailFragment : Fragment() {
                 .centerCrop()
                 .into(binding.ivBerita)
         }
+        binding.tvIsi.text = isi.toString()
+        binding.tvSumber.text = sumber.toString()
 
         return  binding.root
     }

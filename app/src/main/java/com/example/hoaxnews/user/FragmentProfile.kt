@@ -1,11 +1,13 @@
 package com.example.hoaxnews.user
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.hoaxnews.LoginActivity
 import com.example.hoaxnews.R
 import com.example.hoaxnews.databinding.FragmentProfileBinding
 import com.example.hoaxnews.model.Users
@@ -44,6 +46,13 @@ class FragmentProfile : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
+        }
+
+        // Button Logout
+        binding.btnLogout.setOnClickListener{
+            auth.signOut()
+            val intent =Intent(this@FragmentProfile.requireContext(), LoginActivity::class.java)
+            startActivity(intent)
         }
 
         userInfo()
