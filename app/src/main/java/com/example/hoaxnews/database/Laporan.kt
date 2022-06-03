@@ -4,7 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Laporan(
-    val id_user: String,
+    val id_user: String? = null,
     val image: String? = null,
     val title: String? = null,
     val name: String? = null,

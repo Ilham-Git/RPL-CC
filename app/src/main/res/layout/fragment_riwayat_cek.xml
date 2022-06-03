@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.RiwayatLaporanFragment">
+    tools:context=".user.RiwayatCekFragment">
 
     <ProgressBar
         android:id="@+id/pb_laporan"
@@ -29,6 +29,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btnCekFakta"
+                android:backgroundTint="@color/abu_gelap"
+                android:textColor="@color/black"
                 android:text="Laporan Berita" />
 
             <Button
@@ -39,9 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnLaporan"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:backgroundTint="@color/abu_gelap"
-                android:text="Cek Fakta"
-                android:textColor="@color/black" />
+                android:text="Cek Fakta" />
 
             <EditText
                 android:id="@+id/et_laporan"
@@ -67,7 +67,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/et_laporan"
                 app:layout_constraintStart_toStartOf="@id/et_laporan"
-                android:text="Riwayat Laporan"
+                android:text="Riwayat Cek Fakta"
                 android:textColor="@color/black"
                 android:textSize="24dp"
                 android:textStyle="bold"/>

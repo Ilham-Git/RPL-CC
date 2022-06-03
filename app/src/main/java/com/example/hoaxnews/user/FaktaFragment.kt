@@ -14,6 +14,8 @@ import com.example.hoaxnews.database.CekFakta
 import com.example.hoaxnews.database.Laporan
 import com.example.hoaxnews.databinding.FragmentFaktaBinding
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -24,6 +26,8 @@ class FaktaFragment : Fragment() {
 
     private lateinit var binding: FragmentFaktaBinding
     private lateinit var database: DatabaseReference
+    lateinit var auth: FirebaseAuth
+    private lateinit var firebaseUser: FirebaseUser
     lateinit var ImageUri : Uri
     var count : Int = 0
 
@@ -34,6 +38,8 @@ class FaktaFragment : Fragment() {
 
         binding = FragmentFaktaBinding.inflate(layoutInflater)
 
+        auth = FirebaseAuth.getInstance()
+        firebaseUser = auth.currentUser!!
         database = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cek Fakta")
 
         count = 0
@@ -97,15 +103,16 @@ class FaktaFragment : Fragment() {
     }
 
     private fun laporFakta(id_fakta : String?,
-                            uploadedImageUrl : String,
-                            judul : String,
-                            nama : String,
-                            link : String,
-                            desc : String){
+                           uploadedImageUrl : String,
+                           judul : String,
+                           nama : String,
+                           link : String,
+                           desc : String){
 
         val status = "Sedang Di Proses"
+        val id = firebaseUser.uid
 
-        val CekFakta = CekFakta(uploadedImageUrl, judul, nama, link, desc, status)
+        val CekFakta = CekFakta(id, uploadedImageUrl, judul, nama, link, desc, status)
 
 
         if(id_fakta != null) {

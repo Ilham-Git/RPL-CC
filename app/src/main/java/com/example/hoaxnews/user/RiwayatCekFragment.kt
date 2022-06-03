@@ -10,20 +10,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoaxnews.R
+import com.example.hoaxnews.database.CekFakta
 import com.example.hoaxnews.database.Laporan
-import com.example.hoaxnews.databinding.FragmentRiwayatLaporanBinding
+import com.example.hoaxnews.databinding.FragmentRiwayatCekBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
-class RiwayatLaporanFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
+class RiwayatCekFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
 
-    lateinit var binding: FragmentRiwayatLaporanBinding
+    lateinit var binding: FragmentRiwayatCekBinding
     private lateinit var ref: DatabaseReference
     lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
-    private lateinit var laporanArrayList : ArrayList<Laporan>
+    private lateinit var cekArrayList : ArrayList<Laporan>
     private lateinit var adapter: RiwayatAdapter
 
     override fun onCreateView(
@@ -31,7 +32,7 @@ class RiwayatLaporanFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentRiwayatLaporanBinding.inflate(layoutInflater)
+        binding = FragmentRiwayatCekBinding.inflate(layoutInflater)
 
         auth = FirebaseAuth.getInstance()
         firebaseUser = auth.currentUser!!
@@ -39,18 +40,18 @@ class RiwayatLaporanFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
         binding.laporanlList.layoutManager = LinearLayoutManager(context)
         binding.laporanlList.setHasFixedSize(true)
 
-        laporanArrayList = arrayListOf<Laporan>()
+        cekArrayList = arrayListOf<Laporan>()
 
-        adapter = RiwayatAdapter(laporanArrayList, this)
+        adapter = RiwayatAdapter(cekArrayList, this)
 
         binding.laporanlList.adapter = adapter
 
-        // Button Cek fakta
-        val fragmentRiwayatCek = RiwayatCekFragment()
+        // Button Laporan
+        val fragmentRiwayatLaporan = RiwayatLaporanFragment()
 
-        binding.btnCekFakta.setOnClickListener {
+        binding.btnLaporan.setOnClickListener {
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragment_container, fragmentRiwayatCek, RiwayatCekFragment::class.java.simpleName)
+                replace(R.id.fragment_container, fragmentRiwayatLaporan, RiwayatLaporanFragment::class.java.simpleName)
                     .commit()
             }
         }
@@ -81,22 +82,22 @@ class RiwayatLaporanFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
 
     private fun getRiwayatData(search: String){
         binding.pbLaporan.setVisibility(View.VISIBLE)
-        ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Laporan")
+        ref = FirebaseDatabase.getInstance("https://rpl-cc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cek Fakta")
 
         val firebaseSearchQuery = ref.orderByChild("title").startAt(search).endAt(search + "\uf8ff")
 
 
         firebaseSearchQuery.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                laporanArrayList.clear()
+                cekArrayList.clear()
                 for(riwayatSnapshot in snapshot.children){
                     if (riwayatSnapshot.child("id_user").getValue()!!.equals(firebaseUser.uid)) {
                         val local = riwayatSnapshot.getValue(Laporan::class.java)
-                        laporanArrayList.add(local!!)
+                        cekArrayList.add(local!!)
                     }
                 }
                 binding.pbLaporan.setVisibility(View.GONE)
-                binding.laporanlList.adapter = RiwayatAdapter(laporanArrayList, this@RiwayatLaporanFragment)
+                binding.laporanlList.adapter = RiwayatAdapter(cekArrayList, this@RiwayatCekFragment)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -107,7 +108,7 @@ class RiwayatLaporanFragment : Fragment(), RiwayatAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val local = laporanArrayList.get(position)
+        val local = cekArrayList.get(position)
         val bundle = Bundle()
         bundle.putString("nama", local.title)
         if (!local.image.isNullOrEmpty()) {
