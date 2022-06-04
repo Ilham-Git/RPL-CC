@@ -13,18 +13,20 @@ class UserActivity : AppCompatActivity() {
     private val fragmentLokal = LocalFragment()
     private val fragmentReport = ReportFragment()
     private val fragmentRiwayat = RiwayatLaporanFragment()
+    private val fragmentBeranda = BerandaFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
-        replaceFragment(fragmentLokal)
+        replaceFragment(fragmentBeranda)
 
         bottom_navigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_profil -> replaceFragment(fragmentProfile)
                 R.id.menu_riwayat -> replaceFragment(fragmentRiwayat)
                 R.id.menu_lapor -> replaceFragment(fragmentReport)
-                R.id.menu_beranda -> replaceFragment(fragmentLokal)
+                R.id.menu_lokal -> replaceFragment(fragmentLokal)
+                R.id.menu_beranda -> replaceFragment(fragmentBeranda)
             }
             true
         }

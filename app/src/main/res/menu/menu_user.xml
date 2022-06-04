@@ -6,6 +6,12 @@
         android:id="@+id/menu_beranda"
         android:icon="@drawable/ic_home"
         android:title="Beranda" />
+
+    <item
+        android:id="@+id/menu_lokal"
+        android:icon="@drawable/ic_layout"
+        android:title="lokal"/>
+
     <item
         android:id="@+id/menu_lapor"
         android:icon="@drawable/ic_megaphone"
