@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.example.hoaxnews.databinding.ActivityFormUserBinding
-import com.example.hoaxnews.user.MainActivity
 import com.example.hoaxnews.user.UserActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -80,9 +79,7 @@ class Form_UserActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(namas, pass)
             .addOnSuccessListener {
                 progresDialog.dismiss()
-                    val fbUser = auth.currentUser
-                    val nama = fbUser!!.displayName
-                    Toast.makeText(this, "Berhasil login sebagai ${nama}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Berhasil login", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, UserActivity::class.java))
                     finish()
             }

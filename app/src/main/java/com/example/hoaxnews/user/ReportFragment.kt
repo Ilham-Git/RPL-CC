@@ -1,6 +1,7 @@
 package com.example.hoaxnews.user
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -27,6 +28,7 @@ class ReportFragment : Fragment() {
     private lateinit var database: DatabaseReference
     lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
+    private lateinit var progresDialog: ProgressDialog
     lateinit var ImageUri : Uri
     var count : Int = 0
 
@@ -43,8 +45,14 @@ class ReportFragment : Fragment() {
 
         count = 0
 
+        progresDialog = ProgressDialog(context)
+        progresDialog.setTitle("Mohon tunggu sebentar")
+        progresDialog.setMessage("Mengirim...")
+        progresDialog.setCanceledOnTouchOutside(false)
+
         // Button Lapor
         binding.btnKirimLapor.setOnClickListener {
+            progresDialog.show()
 
             val id_laporan = database.push().key
             val judul = binding.etJudulLapor.text.toString()
@@ -119,15 +127,17 @@ class ReportFragment : Fragment() {
 
         if(id_laporan != null) {
             database.child(id_laporan).setValue(laporan).addOnSuccessListener {
-                binding.ivFotoLapor.setImageResource(R.drawable.image)
+                binding.ivFotoLapor.setImageResource(R.drawable.img_holder)
                 binding.etJudulLapor.text.clear()
                 binding.etNamaLapor.text.clear()
                 binding.etLinkLapor.text.clear()
                 binding.etTeksLapor.text.clear()
                 count = 0
+                progresDialog.dismiss()
 
                 Toast.makeText(context, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
+                progresDialog.dismiss()
                 Toast.makeText(context, "Gagal", Toast.LENGTH_SHORT).show()
             }
         }
@@ -150,7 +160,7 @@ class ReportFragment : Fragment() {
 
             Picasso.get()
                 .load(ImageUri)
-                .resize(200,100)
+                .resize(200,200)
                 .into(binding.ivFotoLapor)
 
         }

@@ -39,10 +39,6 @@ class Form_RegisterActivity : AppCompatActivity() {
 
         redirectLogin = findViewById(R.id.redirect)
 
-        actionBar = supportActionBar!!
-        actionBar.title = "Register"
-        actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.setDisplayShowHomeEnabled(true)
 
         progresDialog = ProgressDialog(this)
         progresDialog.setTitle("Mohon tunggu sebentar")
@@ -60,6 +56,10 @@ class Form_RegisterActivity : AppCompatActivity() {
             startActivity(Intent(this, Form_UserActivity::class.java))
         }
 
+        binding.back.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun validasiData() {
@@ -84,9 +84,7 @@ class Form_RegisterActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 simpanUser()
 
-                val fbuser = auth.currentUser
-                val nama = fbuser!!.displayName
-                Toast.makeText(this, "Akun berhasil dibuat dengan nama ${nama}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Akun berhasil dibuat", Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this,  Form_UserActivity::class.java))
                 finish()

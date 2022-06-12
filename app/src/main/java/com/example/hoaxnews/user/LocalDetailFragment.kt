@@ -43,6 +43,7 @@ class LocalDetailFragment : Fragment() {
         binding.tvIsi.text = isi.toString()
         binding.tvSumber.text = sumber.toString()
 
+
         return  binding.root
     }
 }

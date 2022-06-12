@@ -75,30 +75,37 @@
         android:textColor="@color/black"
         android:textSize="18dp" />
 
-    <EditText
-        android:id="@+id/etNamaFakta"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNamaFakta"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="50dp"
-        android:ems="10"
-        android:hint="Masukkan Nama"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
+        <EditText
+            android:id="@+id/etNamaFakta"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNamaFakta"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="50dp"
+            android:ems="10"
+            android:hint="Masukkan Nama"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-    <ImageView
-        android:id="@+id/ivFotoFakta"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tvFotoFakta"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="3dp"
-        app:srcCompat="@drawable/image" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvFotoFakta"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/tvFotoFakta"
+            app:cardCornerRadius="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="107dp"
+            android:layout_marginTop="3dp">
+
+            <ImageView
+                android:id="@+id/ivFotoFakta"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/img_holder" />
+        </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvFotoFakta"
@@ -118,7 +125,7 @@
         android:id="@+id/tvJudulFakta"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivFotoFakta"
+        android:layout_below="@+id/cvFotoFakta"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"

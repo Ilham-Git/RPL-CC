@@ -1,5 +1,6 @@
 package com.example.hoaxnews.user
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,13 @@ class RiwayatAdapter(private val riwayatList : ArrayList<Laporan>,
                 .resize(100, 100)
                 .centerCrop()
                 .into(holder.gambar)
+        }
+        if(currentItem.status == "Sedang Di Proses"){
+            holder.status.setTextColor(Color.BLUE)
+        }else if(currentItem.status == "Hoax"){
+            holder.status.setTextColor(Color.RED)
+        }else if(currentItem.status == "Fakta"){
+            holder.status.setTextColor(Color.parseColor("#04764E"))
         }
         holder.status.text = currentItem.status
     }

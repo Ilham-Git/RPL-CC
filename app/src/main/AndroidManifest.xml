@@ -38,14 +38,6 @@
             android:exported="false" />
 
         <activity
-            android:name=".user.EditProfileActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".user.ProfileActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".Form_RegisterActivity"
             android:exported="false" />
 

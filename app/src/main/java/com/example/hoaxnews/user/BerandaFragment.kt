@@ -101,6 +101,7 @@ class BerandaFragment : Fragment(), BeritaAdapter.OnItemClickListener {
     override fun onItemClick(position: Int) {
         val berita = beritaArrayList.get(position)
         val bundle = Bundle()
+        bundle.putString("isi", berita.desc)
         bundle.putString("nama", berita.judul)
         if (!berita.image.isNullOrEmpty()) {
             bundle.putString("gambar", berita.image)

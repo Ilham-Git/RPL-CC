@@ -118,21 +118,28 @@
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
-    <ImageView
-        android:id="@+id/ivFotoLapor"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tvFotoLapor"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/image" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvFotoLapor"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/tvFotoLapor"
+            app:cardCornerRadius="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="107dp"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/ivFotoLapor"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/img_holder" />
+        </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvJudulLapor"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivFotoLapor"
+        android:layout_below="@+id/cvFotoLapor"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"

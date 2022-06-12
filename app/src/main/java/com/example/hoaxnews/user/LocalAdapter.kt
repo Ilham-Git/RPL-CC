@@ -20,6 +20,7 @@ class LocalAdapter (private val localList : ArrayList<Laporan>,
     inner class LocalViewHolder (itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val judul : TextView = itemView.findViewById(R.id.tvJudul)
         val gambar : ImageView = itemView.findViewById(R.id.iv_gambarberita)
+        val nama: TextView = itemView.findViewById(R.id.tv_sumber)
 
         init {
             itemView.setOnClickListener(this)
@@ -42,6 +43,7 @@ class LocalAdapter (private val localList : ArrayList<Laporan>,
         val currentItem = localList[position]
 
         holder.judul.text = currentItem.title
+        holder.nama.text = currentItem.name
         if (!currentItem.image.isNullOrEmpty()) {
             Picasso.get()
                 .load(currentItem.image)

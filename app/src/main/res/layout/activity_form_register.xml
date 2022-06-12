@@ -39,13 +39,12 @@
         android:textColor="@color/black" />
 
     <TextView
-        android:layout_alignBottom="@id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/usernam"
-        android:textColor="@color/black"
+        android:layout_alignBottom="@id/username"
         android:layout_marginBottom="70sp"
-        />
+        android:text="@string/usernam"
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/username"
@@ -56,7 +55,8 @@
         android:background="@drawable/border_outline"
         android:drawableStart="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
-        android:hint="Masukkan Nama Anda"
+        android:drawableTint="@color/hijau"
+        android:hint="Masukkan E-mail Anda"
         android:lines="1"
         android:maxLines="1"
         android:paddingHorizontal="20dp"
@@ -100,23 +100,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/password"
-        android:layout_marginTop="180dp"
-        android:text="@string/daftar"
-        android:textColor="@color/white"
+        android:layout_marginTop="160dp"
         android:background="@drawable/border_outline"
         android:backgroundTint="@color/hijau"
-        android:paddingVertical="20dp"
-        />
+        android:paddingVertical="10dp"
+        android:text="@string/daftar"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/redirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/login"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="80sp"
         android:text="@string/masuk"
         android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        />
+        android:textColorLink="#FF03A9F4"/>
 
 </RelativeLayout>

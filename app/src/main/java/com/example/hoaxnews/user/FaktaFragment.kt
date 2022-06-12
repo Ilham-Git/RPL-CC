@@ -1,6 +1,7 @@
 package com.example.hoaxnews.user
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -28,6 +29,7 @@ class FaktaFragment : Fragment() {
     private lateinit var database: DatabaseReference
     lateinit var auth: FirebaseAuth
     private lateinit var firebaseUser: FirebaseUser
+    private lateinit var progresDialog: ProgressDialog
     lateinit var ImageUri : Uri
     var count : Int = 0
 
@@ -44,7 +46,13 @@ class FaktaFragment : Fragment() {
 
         count = 0
 
+        progresDialog = ProgressDialog(context)
+        progresDialog.setTitle("Mohon tunggu sebentar")
+        progresDialog.setMessage("Mengirim...")
+        progresDialog.setCanceledOnTouchOutside(false)
+
         binding.btnKirimFakta.setOnClickListener {
+            progresDialog.show()
             val id_fakta = database.push().key
             val judul = binding.etJudulFakta.text.toString()
             val nama = binding.etNamaFakta.text.toString()
@@ -117,15 +125,17 @@ class FaktaFragment : Fragment() {
 
         if(id_fakta != null) {
             database.child(id_fakta).setValue(CekFakta).addOnSuccessListener {
-                binding.ivFotoFakta.setImageResource(R.drawable.image)
+                binding.ivFotoFakta.setImageResource(R.drawable.img_holder)
                 binding.etJudulFakta.text.clear()
                 binding.etNamaFakta.text.clear()
                 binding.etLinkFakta.text.clear()
                 binding.etTeksFakta.text.clear()
                 count = 0
+                progresDialog.dismiss()
 
                 Toast.makeText(context, "Berhasil Disimpan", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
+                progresDialog.dismiss()
                 Toast.makeText(context, "Gagal", Toast.LENGTH_SHORT).show()
             }
         }
@@ -148,7 +158,7 @@ class FaktaFragment : Fragment() {
 
             Picasso.get()
                 .load(ImageUri)
-                .resize(200,100)
+                .resize(200,200)
                 .into(binding.ivFotoFakta)
 
         }

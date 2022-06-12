@@ -32,10 +32,11 @@
         android:padding="5dp"
         android:background="@drawable/textbox_profile"
         android:drawableEnd="@drawable/ic_search"
+        android:drawableTint="@color/abu_gelap"
         android:maxLines="1"
         android:lines="1"
         android:singleLine="true"
-        android:hint="Pencarian"
+        android:hint="  Pencarian"
         android:textSize="20dp"/>
 
     <TextView

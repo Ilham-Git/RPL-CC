@@ -36,7 +36,7 @@
                 android:maxLines="1"
                 android:lines="1"
                 android:singleLine="true"
-                android:hint="Pencarian"
+                android:hint="  Pencarian"
                 android:textSize="20dp"/>
 
             <TextView

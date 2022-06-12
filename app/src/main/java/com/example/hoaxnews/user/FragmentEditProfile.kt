@@ -47,7 +47,7 @@ class FragmentEditProfile : Fragment() {
 
         progressDialog = ProgressDialog(context)
         progressDialog.setTitle("Mohon tunggu sebentar")
-        progressDialog.setMessage("Mengupdate Profile")
+        progressDialog.setMessage("Mengupdate Profile...")
         progressDialog.setCanceledOnTouchOutside(false)
 
         val fragmentProfile = FragmentProfile()

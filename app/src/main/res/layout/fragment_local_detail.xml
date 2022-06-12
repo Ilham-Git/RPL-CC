@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
         <TextView
             android:id="@+id/tv_judul"
             android:layout_width="match_parent"
@@ -25,6 +26,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="judul"
+            android:textAlignment="center"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="24sp"/>
 
@@ -37,7 +40,7 @@
             app:layout_constraintStart_toStartOf="@+id/tv_judul"
             app:layout_constraintEnd_toEndOf="@id/tv_judul"
             android:text="sumber"
-            android:textColor="@color/black"
+            android:textColor="#03A9F4"
             android:textSize="18sp"/>
 
         <ImageView
