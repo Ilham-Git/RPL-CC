@@ -102,8 +102,8 @@ class BerandaFragment : Fragment(), BeritaAdapter.OnItemClickListener {
         val berita = beritaArrayList.get(position)
         val bundle = Bundle()
         bundle.putString("nama", berita.judul)
-        if (!berita.gambar.isNullOrEmpty()) {
-            bundle.putString("gambar", berita.gambar)
+        if (!berita.image.isNullOrEmpty()) {
+            bundle.putString("gambar", berita.image)
         }
         bundle.putString("sumber", berita.link)
         val localDetailFragment = LocalDetailFragment()

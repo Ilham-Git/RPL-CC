@@ -18,9 +18,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        hitung = 0
-        count = 0
-
         val btnLapor = findViewById<Button>(R.id.btn_lapor)
         btnLapor.setOnClickListener(this)
 
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.btn_lapor ->{
-                val intent = Intent(this, LaporanActivity::class.java)
+                val intent = Intent(this, UserActivity::class.java)
                 startActivity(intent)
             }
         }

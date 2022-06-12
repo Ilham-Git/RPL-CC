@@ -18,6 +18,7 @@ class BeritaAdapter (private val beritaList : ArrayList<Berita>,
             val judul : TextView = itemView.findViewById(R.id.tvJudul)
             val gambar : ImageView = itemView.findViewById(R.id.iv_gambarberita)
             val tanggal : TextView = itemView.findViewById(R.id.tv_waktu)
+            val nama: TextView = itemView.findViewById(R.id.tv_sumber)
 
             init {
                 itemView.setOnClickListener(this)
@@ -41,10 +42,11 @@ class BeritaAdapter (private val beritaList : ArrayList<Berita>,
         val currentItem = beritaList[position]
 
         holder.judul.text = currentItem.judul
+        holder.nama.text = "admin"
         holder.tanggal.text = currentItem.tanggal_buat
-        if (!currentItem.gambar.isNullOrEmpty()) {
+        if (!currentItem.image.isNullOrEmpty()) {
             Picasso.get()
-                .load(currentItem.gambar)
+                .load(currentItem.image)
                 .resize(100, 100)
                 .centerCrop()
                 .into(holder.gambar)

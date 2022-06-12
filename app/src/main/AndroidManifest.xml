@@ -48,32 +48,9 @@
         <activity
             android:name=".Form_RegisterActivity"
             android:exported="false" />
+
         <activity
             android:name=".user.UserActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".user.DetailCekActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".user.DetailLaporanActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".admin.HasilCekActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".admin.HasilLaporanActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".user.CekFaktaActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".user.LaporanActivity"
             android:exported="false" />
             
         <activity
